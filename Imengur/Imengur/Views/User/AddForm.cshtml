@@ -7,12 +7,13 @@
 
 <form asp-action="AddUser" method="post">
     @*<div asp-validation-summary="All"></div> *@
-    Login<input asp-for="Login" /> 
+    Login<input asp-for="Login" />
     <span asp-validation-for="Login" class="text-danger"></span>
     <br />
-    Imie<input asp-for="Name" /> 
+    Imie<input asp-for="Name" />
     <br />
-    Email<input asp-for="Email" /> 
+    Email<input asp-for="Email" />
+    <span asp-validation-for="Email" class="text-danger"></span>
     <br />
     Haslo<input asp-for="Password" />
     <span asp-validation-for="Password" class="text-danger"></span>
