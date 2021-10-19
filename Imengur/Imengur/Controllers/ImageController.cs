@@ -10,7 +10,6 @@ namespace Imengur.Controllers
     public class ImageController : Controller
     {
         static List<Image> Images = new List<Image>();
-        public Guid LastGuid;
 
         public IActionResult Index()
         {
@@ -34,16 +33,26 @@ namespace Imengur.Controllers
                 return View("AddForm");
             }
         }
-        public IActionResult DeleteImage(string id)
-        {
-            //var itemToRemove = Images.FirstOrDefault(el => el.GID)
-            System.Diagnostics.Debug.WriteLine("huj");
-            System.Diagnostics.Debug.WriteLine(id);
 
-            //Images.Remove(itemToRemove);
- 
+        public IActionResult DeleteImage(Guid Id)
+        {
+            var itemToRemove = Images.FirstOrDefault(el => Guid.Equals(Id, el.GID));
+            if (itemToRemove != null)
+                Images.Remove(itemToRemove);
             return View("ImageList", Images);
         }
+        
+        public IActionResult EditForm(Guid Id)
+        {
+            var currentImage = Images.FirstOrDefault(el => Guid.Equals(Id, el.GID));
+            return View("EditForm", currentImage);
+        }
+
+        public IActionResult EditImage()
+        {
+            return View("ImageList", Images);
+        }
+
 
     }
 }

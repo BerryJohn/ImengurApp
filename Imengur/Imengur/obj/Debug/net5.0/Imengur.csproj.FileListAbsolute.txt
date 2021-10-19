@@ -87,3 +87,7 @@ C:\Users\Berry\Desktop\prog_dotnet\Imengur\Imengur\obj\Debug\net5.0\Imengur.cspr
 C:\Users\Berry\Desktop\prog_dotnet\Imengur\Imengur\obj\Debug\net5.0\Razor\Views\Image\Index.cshtml.g.cs
 C:\Users\Berry\Desktop\prog_dotnet\Imengur\Imengur\obj\Debug\net5.0\Razor\Views\Image\AddForm.cshtml.g.cs
 C:\Users\Berry\Desktop\prog_dotnet\Imengur\Imengur\obj\Debug\net5.0\Razor\Views\Image\ImageList.cshtml.g.cs
+D:\Users\jan.bak\Desktop\prog_dotnet\Imengur\Imengur\obj\Debug\net5.0\Razor\Views\Image\AddForm.cshtml.g.cs
+D:\Users\jan.bak\Desktop\prog_dotnet\Imengur\Imengur\obj\Debug\net5.0\Razor\Views\Image\ImageList.cshtml.g.cs
+D:\Users\jan.bak\Desktop\prog_dotnet\Imengur\Imengur\obj\Debug\net5.0\Razor\Views\Image\Index.cshtml.g.cs
+D:\Users\jan.bak\Desktop\prog_dotnet\Imengur\Imengur\obj\Debug\net5.0\Razor\Views\Image\EditForm.cshtml.g.cs

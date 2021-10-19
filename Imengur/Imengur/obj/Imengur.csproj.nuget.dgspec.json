@@ -1,21 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Berry\\Desktop\\prog_dotnet\\Imengur\\Imengur\\Imengur.csproj": {}
+    "D:\\Users\\jan.bak\\Desktop\\prog_dotnet\\Imengur\\Imengur\\Imengur.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Berry\\Desktop\\prog_dotnet\\Imengur\\Imengur\\Imengur.csproj": {
+    "D:\\Users\\jan.bak\\Desktop\\prog_dotnet\\Imengur\\Imengur\\Imengur.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Berry\\Desktop\\prog_dotnet\\Imengur\\Imengur\\Imengur.csproj",
+        "projectUniqueName": "D:\\Users\\jan.bak\\Desktop\\prog_dotnet\\Imengur\\Imengur\\Imengur.csproj",
         "projectName": "Imengur",
-        "projectPath": "C:\\Users\\Berry\\Desktop\\prog_dotnet\\Imengur\\Imengur\\Imengur.csproj",
-        "packagesPath": "C:\\Users\\Berry\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Berry\\Desktop\\prog_dotnet\\Imengur\\Imengur\\obj\\",
+        "projectPath": "D:\\Users\\jan.bak\\Desktop\\prog_dotnet\\Imengur\\Imengur\\Imengur.csproj",
+        "packagesPath": "D:\\Users\\jan.bak\\.nuget\\packages\\",
+        "outputPath": "D:\\Users\\jan.bak\\Desktop\\prog_dotnet\\Imengur\\Imengur\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Berry\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "D:\\Users\\jan.bak\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
@@ -57,7 +63,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     }
