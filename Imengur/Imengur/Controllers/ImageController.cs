@@ -48,9 +48,18 @@ namespace Imengur.Controllers
             return View("EditForm", currentImage);
         }
 
-        public IActionResult EditImage()
+        public IActionResult EditImage(Image image, Guid Id)
         {
-            return View("ImageList", Images);
+            if (ModelState.IsValid)
+            {
+                Images.Find(p => p.GID == Id).Title = image.Title;
+                Images.Find(p => p.GID == Id).Description = image.Description;
+                return View("ImageList", Images);
+            }
+            else
+            {
+                return View("ImageList", Images);
+            }
         }
 
 
