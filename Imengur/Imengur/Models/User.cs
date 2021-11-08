@@ -23,5 +23,7 @@ namespace Imengur.Models
         [MinLength(length: 6, ErrorMessage = "Password must be longer than 6")]
         [MaxLength(length:50, ErrorMessage="Password cannot be longer than 50")]
         public string Password { get; set; }
+
+        public readonly Guid UID = Guid.NewGuid();
     }
 }

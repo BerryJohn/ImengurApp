@@ -13,7 +13,7 @@ namespace Imengur.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return View("UserList", Users);
         }
 
         public IActionResult AddForm()
@@ -32,6 +32,42 @@ namespace Imengur.Controllers
             {
                 return View("AddForm");
             }
+        }
+
+        public IActionResult DeleteUser(Guid Id)
+        {
+            var userToRemove = Users.FirstOrDefault(el => Guid.Equals(Id, el.UID));
+            if (userToRemove != null)
+                Users.Remove(userToRemove);
+            return View("UserList", Users);
+        }
+
+        public IActionResult EditUserForm(Guid Id)
+        {
+            var currentUser = Users.FirstOrDefault(el => Guid.Equals(Id, el.UID));
+            return View("EditUserForm", currentUser);
+        }
+        
+        //public IActionResult EditUser(User user, Guid Id)
+        public IActionResult EditUser(string Login, string Name, string Email, string Password, bool NewPassword, Guid Id)
+        {
+             if (ModelState.IsValid)
+             {
+                 Users.Find(p => p.UID == Id).Login = Login;
+                 Users.Find(p => p.UID == Id).Name = Name;
+                 Users.Find(p => p.UID == Id).Email = Email;
+                 if(NewPassword)
+                    Users.Find(p => p.UID == Id).Password = Password;
+                 return View("UserList", Users);
+             }
+             else
+             {
+                 var currentUser = Users.FirstOrDefault(el => Guid.Equals(Id, el.UID));
+                 return View("EditUserForm", currentUser);
+             }
+
+
+            //return View("UserList", Users); 
         }
     }
 }

@@ -13,7 +13,7 @@ namespace Imengur.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return View("ImageList", Images);
         }
 
         public IActionResult AddForm()
@@ -36,9 +36,9 @@ namespace Imengur.Controllers
 
         public IActionResult DeleteImage(Guid Id)
         {
-            var itemToRemove = Images.FirstOrDefault(el => Guid.Equals(Id, el.GID));
-            if (itemToRemove != null)
-                Images.Remove(itemToRemove);
+            var imageToRemove = Images.FirstOrDefault(el => Guid.Equals(Id, el.GID));
+            if (imageToRemove != null)
+                Images.Remove(imageToRemove);
             return View("ImageList", Images);
         }
         
@@ -52,13 +52,15 @@ namespace Imengur.Controllers
         {
             if (ModelState.IsValid)
             {
-                Images.Find(p => p.GID == Id).Title = image.Title;
-                Images.Find(p => p.GID == Id).Description = image.Description;
+                var editImage = Images.Find(p => p.GID == Id);
+                editImage.Title = image.Title;
+                editImage.Description = image.Description;
                 return View("ImageList", Images);
             }
             else
             {
-                return View("ImageList", Images);
+                var currentImage = Images.FirstOrDefault(el => Guid.Equals(Id, el.GID));
+                return View("EditForm", currentImage);
             }
         }
 

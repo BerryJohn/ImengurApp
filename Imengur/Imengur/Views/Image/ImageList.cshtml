@@ -8,6 +8,7 @@
 <h1>Uploaded images</h1>
 <table class="table">
     <tr>
+        <th>Image ID</th>
         <th>Title</th>
         <th>Date</th>
         <th>Image</th>
@@ -18,6 +19,9 @@
         @foreach (var image in @Model)
         {
             <tr>
+                <td>
+                    @image.GID
+                </td>
                 <td>
                     @image.Title
                 </td>
@@ -31,10 +35,12 @@
                     @image.Description
                 </td>
                 <td>
-                    <a class="btn btn-danger" asp-controller="Image" asp-action="DeleteImage" asp-route-Id="@image.GID">Usun</a>
-                    <a class="btn btn-primary" asp-controller="Image" asp-action="EditForm" asp-route-Id="@image.GID">Edytuj</a>
+                    <a class="btn btn-danger" asp-controller="Image" asp-action="DeleteImage" asp-route-Id="@image.GID">Delete</a>
+                    <a class="btn btn-primary" asp-controller="Image" asp-action="EditForm" asp-route-Id="@image.GID">Edit</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
+<a class="btn btn-primary" asp-controller="Image" asp-action="AddForm">Upload image</a>

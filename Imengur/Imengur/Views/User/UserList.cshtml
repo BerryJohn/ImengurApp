@@ -5,27 +5,38 @@
 @{
 }
 
-<h1>Lista aktualnych użytkowników:</h1>
+<h1>Current user list</h1>
 <table class="table">
     <tr>
-        <th>Imie</th>
+        <th>User ID</th>
+        <th>Name</th>
         <th>Login</th>
         <th>Email</th>
+        <th>Options</th>
     </tr>
     <tbody>
-        @foreach(var user in @Model)
-            { 
-        <tr>
-            <td>
-                @user.Name
-            </td>
-            <td>
-                @user.Login
-            </td>
-            <td>
-                @user.Email
-            </td>
-        </tr>
-            }
+        @foreach (var user in @Model)
+        {
+            <tr>
+                <td>
+                    @user.UID
+                </td>
+                <td>
+                    @user.Name
+                </td>
+                <td>
+                    @user.Login
+                </td>
+                <td>
+                    @user.Email
+                </td>
+                <td>
+                    <a class="btn btn-danger" asp-controller="User" asp-action="DeleteUser" asp-route-Id="@user.UID">Delete</a>
+                    <a class="btn btn-primary" asp-controller="User" asp-action="EditUserForm" asp-route-Id="@user.UID">Edit</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+<a class="btn btn-primary" asp-controller="User" asp-action="AddForm">Add User</a>
