@@ -11,9 +11,15 @@ namespace Imengur.Controllers
     {
         static List<Image> Images = new List<Image>();
 
+        private IImageRepository repository;
+        public ImageController(IImageRepository repository)
+        {
+            this.repository = repository;
+        }
+
         public IActionResult Index()
         {
-            return View("ImageList", Images);
+            return View("ImageList", repository.Images);
         }
 
         public IActionResult AddForm()
@@ -25,8 +31,9 @@ namespace Imengur.Controllers
         {
             if(ModelState.IsValid)
             {
+                //repository.Images.Append(image);
                 Images.Add(image);
-                return View("ImageList", Images);
+                return View("ImageList", repository.Images);
             }
             else
             {
@@ -34,36 +41,34 @@ namespace Imengur.Controllers
             }
         }
 
-        public IActionResult DeleteImage(Guid Id)
+        public IActionResult DeleteImage(int Id)
         {
-            var imageToRemove = Images.FirstOrDefault(el => Guid.Equals(Id, el.GID));
+            var imageToRemove = Images.FirstOrDefault(el => Id == el.id);
             if (imageToRemove != null)
                 Images.Remove(imageToRemove);
             return View("ImageList", Images);
         }
         
-        public IActionResult EditForm(Guid Id)
+        public IActionResult EditForm(int Id)
         {
-            var currentImage = Images.FirstOrDefault(el => Guid.Equals(Id, el.GID));
+            var currentImage = Images.FirstOrDefault(el => Id == el.id);
             return View("EditForm", currentImage);
         }
 
-        public IActionResult EditImage(Image image, Guid Id)
+        public IActionResult EditImage(Image image, int Id)
         {
             if (ModelState.IsValid)
             {
-                var editImage = Images.Find(p => p.GID == Id);
+                var editImage = Images.Find(p => p.id == Id);
                 editImage.Title = image.Title;
                 editImage.Description = image.Description;
                 return View("ImageList", Images);
             }
             else
             {
-                var currentImage = Images.FirstOrDefault(el => Guid.Equals(Id, el.GID));
+                var currentImage = Images.FirstOrDefault(el => Id == el.id);
                 return View("EditForm", currentImage);
             }
         }
-
-
     }
 }
