@@ -1,4 +1,4 @@
-﻿@model IQueryable<Imengur.Models.Image>
+﻿@model IList<Imengur.Models.Image>
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
@@ -13,7 +13,6 @@
         @*<th>Date</th>*@
         <th>Image</th>
         <th>Description</th>
-        <th>Options</th>
     </tr>
     <tbody>
         @foreach (var image in @Model)
@@ -34,14 +33,7 @@
                 <td>
                     @image.Description
                 </td>
-                <td>
-                    <a class="btn btn-danger" asp-controller="Image" asp-action="DeleteImage" asp-route-Id="@image.id">Delete</a>
-                    <a class="btn btn-primary" asp-controller="Image" asp-action="EditForm" asp-route-Id="@image.id">Edit</a>
-                </td>
             </tr>
         }
     </tbody>
 </table>
-
-<a class="btn btn-primary" asp-controller="Image" asp-action="AddForm">Upload image</a>
-<a class="btn btn-primary" asp-controller="Image" asp-action="SearchForm">Search image</a>

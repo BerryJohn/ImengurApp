@@ -30,6 +30,8 @@ namespace Imengur
             services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(Configuration["Data:Images:ConnectionString"]));
             services.AddTransient<IImageRepository, EFImageRepository>();
+            services.AddTransient<ICrudImageRepository, CrudImageRepository>();
+            services.AddTransient<ICustomerImageRepository, CustomerImageRepository>();
 
         }
 

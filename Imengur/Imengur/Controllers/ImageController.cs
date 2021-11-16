@@ -9,12 +9,17 @@ namespace Imengur.Controllers
 {
     public class ImageController : Controller
     {
-        static List<Image> Images = new List<Image>();
+        //static List<Image> Images = new List<Image>();
 
         private IImageRepository repository;
-        public ImageController(IImageRepository repository)
+        private ICrudImageRepository crudRepository;
+        private ICustomerImageRepository customerRepository;
+
+        public ImageController(IImageRepository repository, ICrudImageRepository crudImageRepository, ICustomerImageRepository customerRepository)
         {
             this.repository = repository;
+            this.crudRepository = crudImageRepository;
+            this.customerRepository = customerRepository;
         }
 
         public IActionResult Index()
@@ -31,8 +36,7 @@ namespace Imengur.Controllers
         {
             if(ModelState.IsValid)
             {
-                //repository.Images.Append(image);
-                Images.Add(image);
+                crudRepository.Add(image);
                 return View("ImageList", repository.Images);
             }
             else
@@ -43,32 +47,51 @@ namespace Imengur.Controllers
 
         public IActionResult DeleteImage(int Id)
         {
-            var imageToRemove = Images.FirstOrDefault(el => Id == el.id);
-            if (imageToRemove != null)
-                Images.Remove(imageToRemove);
-            return View("ImageList", Images);
+            crudRepository.Delete(Id);
+            return View("ImageList", repository.Images);
         }
         
         public IActionResult EditForm(int Id)
         {
-            var currentImage = Images.FirstOrDefault(el => Id == el.id);
+            var currentImage = crudRepository.Find(Id);
             return View("EditForm", currentImage);
         }
 
-        public IActionResult EditImage(Image image, int Id)
+        public IActionResult EditImage(Image image)
         {
             if (ModelState.IsValid)
             {
-                var editImage = Images.Find(p => p.id == Id);
-                editImage.Title = image.Title;
-                editImage.Description = image.Description;
-                return View("ImageList", Images);
+                crudRepository.Update(image);
+                return View("ImageList", repository.Images);
             }
             else
             {
-                var currentImage = Images.FirstOrDefault(el => Id == el.id);
-                return View("EditForm", currentImage);
+                return View("EditForm", image);
             }
+        }
+        public IActionResult SearchForm()
+        {
+            return View("SearchForm");
+        }
+
+        public IActionResult SearchImage(string? title, string? id)
+        {
+            int newId;
+            if (!string.IsNullOrEmpty(title))
+            {
+                var result = customerRepository.FindByName(title);
+                return View("SearchList", result);
+            }
+            else if( int.TryParse(id, out newId))
+            {
+                var result = customerRepository.FindById(newId);
+                return View("Image", result);
+            }
+            else
+            {
+                return View("SearchList", customerRepository.FindAll());
+            }
+
         }
     }
 }
