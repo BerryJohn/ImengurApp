@@ -9,9 +9,9 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Imengur.Migrations
 {
-    [DbContext(typeof(AppIdentityDbContext))]
-    [Migration("20211207131533_identityv1")]
-    partial class identityv1
+    [DbContext(typeof(ApplicationDbContext))]
+    [Migration("20211207190553_identityOne")]
+    partial class identityOne
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -79,7 +79,7 @@ namespace Imengur.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Userss");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

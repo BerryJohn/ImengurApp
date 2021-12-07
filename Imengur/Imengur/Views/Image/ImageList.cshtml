@@ -5,7 +5,6 @@
 *@
 @{
 }
-
 <h1>Uploaded images</h1>
 <table class="table">
     <tr>
@@ -15,34 +14,40 @@
         @*<th>Date</th>*@
         <th>Image</th>
         <th>Description</th>
-        <th>Options</th>
-    </tr>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <th>Options</th>
+        }
+        </tr>
     <tbody>
         @foreach (var image in @Model)
         {
-            <tr>
-                <td>
-                    @image.Id
-                </td>
-                <td>
-@*                    @image.User.Id*@
-                </td>
-                <td>
-                    @image.Title
-                </td>
-                @*<td>
-                        @image.UploadDate
-                    </td>*@
-                <td>
-                    @image.ImageData
-                </td>
-                <td>
-                    @image.Description
-                </td>
+        <tr>
+            <td>
+                @image.Id
+            </td>
+            <td>
+                @*                    @image.User.Id*@
+            </td>
+            <td>
+                @image.Title
+            </td>
+            @*<td>
+            @image.UploadDate
+        </td>*@
+            <td>
+                @image.ImageData
+            </td>
+            <td>
+                @image.Description
+            </td>
+            @if (User.Identity.IsAuthenticated)
+            {
                 <td>
                     <a class="btn btn-danger" asp-controller="Image" asp-action="DeleteImage" asp-route-Id="@image.Id">Delete</a>
                     <a class="btn btn-primary" asp-controller="Image" asp-action="EditForm" asp-route-Id="@image.Id">Edit</a>
                 </td>
+            }
             </tr>
         }
     </tbody>

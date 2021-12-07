@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Imengur.Migrations
 {
-    public partial class identityv1 : Migration
+    public partial class identityOne : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -47,7 +47,7 @@ namespace Imengur.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Users",
+                name: "Userss",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -59,7 +59,7 @@ namespace Imengur.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.Id);
+                    table.PrimaryKey("PK_Userss", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -183,9 +183,9 @@ namespace Imengur.Migrations
                 {
                     table.PrimaryKey("PK_Images", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Images_Users_UserId",
+                        name: "FK_Images_Userss_UserId",
                         column: x => x.UserId,
-                        principalTable: "Users",
+                        principalTable: "Userss",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -262,7 +262,7 @@ namespace Imengur.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "Userss");
         }
     }
 }

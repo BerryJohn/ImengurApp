@@ -10,22 +10,23 @@ using Imengur.Models;
 
 namespace Imengur.Controllers
 {
-    [Authorize]
+   
     public class AccountController : Controller
     {
         private UserManager<IdentityUser> _userManager;
         private SignInManager<IdentityUser> _signInManager;
-        public AccountController(UserManager<IdentityUser> userManager,
-       SignInManager<IdentityUser> signInManager)
+
+        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
         }
+
         [AllowAnonymous]
         [HttpGet]
         public IActionResult Login(string returnUrl)
         {
-            return View(new LoginModel
+            return View(new Login
             {
                 ReturnUrl = returnUrl
             });
@@ -34,25 +35,22 @@ namespace Imengur.Controllers
         [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginModel loginModel)
+        public async Task<IActionResult> Login(Login login)
         {
             if (ModelState.IsValid)
             {
-                IdentityUser user = await
-               _userManager.FindByNameAsync(loginModel.Name);
+                IdentityUser user = await _userManager.FindByNameAsync(login.Name);
                 if (user != null)
                 {
                     await _signInManager.SignOutAsync();
-                    if ((await _signInManager.PasswordSignInAsync(user,
-                    loginModel.Password, false, false)).Succeeded) ;
+                    if ((await _signInManager.PasswordSignInAsync(user, login.Password, false, false)).Succeeded)
                     {
-                        return Redirect(loginModel?.ReturnUrl ??
-                       "/Admin/Index");
+                        return Redirect(login?.ReturnUrl ?? "/");
                     }
                 }
             }
             ModelState.AddModelError("", "Nieprawidłowa nazwa użytkownika lub hasło");
-            return View(loginModel);
+            return View(login);
         }
 
         public async Task<RedirectResult> Logout(string returnUrl = "/")

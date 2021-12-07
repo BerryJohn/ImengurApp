@@ -19,8 +19,8 @@ namespace Imengur.Controllers
         public ImageController(IImageRepository repository, ICrudImageRepository crudImageRepository, ICustomerImageRepository customerRepository)
         {
             this.repository = repository;
-            this.crudRepository = crudImageRepository;
             this.customerRepository = customerRepository;
+            crudRepository = crudImageRepository;
         }
 
         public IActionResult Index(int? page)

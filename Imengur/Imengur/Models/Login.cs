@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Imengur.Models
 {
-    public class LoginModel
+    public class Login
     {
         [Required]
         public string Name { get; set; }

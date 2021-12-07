@@ -28,12 +28,14 @@ namespace Imengur
         {
             services.AddControllersWithViews();
 
-            services.AddDbContext<AppIdentityDbContext>(options =>
+            services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
-                    Configuration["Data:AppIdentity:ConnectionString"]));
+                    Configuration["Data:Imengur:ConnectionString"]));
             services.AddIdentity<IdentityUser, IdentityRole>()
-            .AddEntityFrameworkStores<AppIdentityDbContext>()
-            .AddDefaultTokenProviders();
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
+
+            services.AddSession();
 
             services.AddTransient<IImageRepository, EFImageRepository>();
             services.AddTransient<ICrudImageRepository, CrudImageRepository>();
@@ -62,7 +64,9 @@ namespace Imengur
 
             app.UseStaticFiles();
             app.UseRouting();
+
             app.UseSession();
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -71,6 +75,7 @@ namespace Imengur
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+            IdentitySeedData.EnsurePopulated(app);
         }
     }
 }

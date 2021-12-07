@@ -8,12 +8,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Imengur.Models
 {
-    public class AppIdentityDbContext : IdentityDbContext<IdentityUser>
+    public class ApplicationDbContext : IdentityDbContext<IdentityUser>
     {
-        public AppIdentityDbContext(DbContextOptions<AppIdentityDbContext> options) : base(options) { }
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
         public DbSet<Image> Images { get; set; }
-        public DbSet<User> Users { get; set; }
+        public DbSet<User> Userss { get; set; }
     }
+
 
     #region Image
     public interface IImageRepository
@@ -41,18 +42,18 @@ namespace Imengur.Models
 
     public class EFImageRepository : IImageRepository
     {
-        private AppIdentityDbContext _AppIdentityDbContext;
-        public EFImageRepository(AppIdentityDbContext AppIdentityDbContext)
+        private ApplicationDbContext _ApplicationDbContext;
+        public EFImageRepository(ApplicationDbContext ApplicationDbContext)
         {
-            _AppIdentityDbContext = AppIdentityDbContext;
+            _ApplicationDbContext = ApplicationDbContext;
         }
-        public IQueryable<Image> Images => _AppIdentityDbContext.Images;
+        public IQueryable<Image> Images => _ApplicationDbContext.Images;
     }
 
     class CrudImageRepository : ICrudImageRepository
     {
-        private AppIdentityDbContext _context;
-        public CrudImageRepository(AppIdentityDbContext context)
+        private ApplicationDbContext _context;
+        public CrudImageRepository(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -91,10 +92,10 @@ namespace Imengur.Models
     class CustomerImageRepository : ICustomerImageRepository
     {
 
-        private AppIdentityDbContext context;
-        public CustomerImageRepository(AppIdentityDbContext AppIdentityDbContext)
+        private ApplicationDbContext context;
+        public CustomerImageRepository(ApplicationDbContext ApplicationDbContext)
         {
-            context = AppIdentityDbContext;
+            context = ApplicationDbContext;
         }
         public IList<Image> FindByName(string namePattern)
         {
@@ -143,64 +144,64 @@ namespace Imengur.Models
 
     public class EFUserRepository : IUserRepository
     {
-        private AppIdentityDbContext _AppIdentityDbContext;
-        public EFUserRepository(AppIdentityDbContext AppIdentityDbContext)
+        private ApplicationDbContext _ApplicationDbContext;
+        public EFUserRepository(ApplicationDbContext ApplicationDbContext)
         {
-            _AppIdentityDbContext = AppIdentityDbContext;
+            _ApplicationDbContext = ApplicationDbContext;
         }
-        public IQueryable<User> Users => _AppIdentityDbContext.Users;
+        public IQueryable<User> Users => _ApplicationDbContext.Userss;
     }
 
     class CrudUserRepository : ICrudUserRepository
     {
-        private AppIdentityDbContext _context;
-        public CrudUserRepository(AppIdentityDbContext context)
+        private ApplicationDbContext _context;
+        public CrudUserRepository(ApplicationDbContext context)
         {
             _context = context;
         }
 
         public User Find(int id)
         {
-            return _context.Users.Find(id);
+            return _context.Userss.Find(id);
         }
 
         public User Delete(int id)
         {
-            var product = _context.Users.Remove(Find(id)).Entity;
+            var product = _context.Userss.Remove(Find(id)).Entity;
             _context.SaveChanges();
             return product;
         }
 
         public User Add(User user)
         {
-            var entity = _context.Users.Add(user).Entity;
+            var entity = _context.Userss.Add(user).Entity;
             _context.SaveChanges();
             return entity;
         }
 
         public User Update(User user)
         {
-            var entity = _context.Users.Update(user).Entity;
+            var entity = _context.Userss.Update(user).Entity;
             _context.SaveChanges();
             return entity;
         }
 
         public IList<User> FindAll()
         {
-            return _context.Users.ToList();
+            return _context.Userss.ToList();
         }
     }
     class CustomerUserRepository : ICustomerUserRepository
     {
 
-        private AppIdentityDbContext context;
-        public CustomerUserRepository(AppIdentityDbContext AppIdentityDbContext)
+        private ApplicationDbContext context;
+        public CustomerUserRepository(ApplicationDbContext ApplicationDbContext)
         {
-            context = AppIdentityDbContext;
+            context = ApplicationDbContext;
         }
         public IList<User> FindByName(string namePattern)
         {
-            return (from p in context.Users
+            return (from p in context.Userss
                     where p.Name.Contains(namePattern)
                     select p).ToList();
         }
@@ -211,11 +212,11 @@ namespace Imengur.Models
         } */
         public User FindById(int id)
         {
-            return context.Users.Find(id);
+            return context.Userss.Find(id);
         }
         public IList<User> FindAll()
         {
-            return context.Users.ToList();
+            return context.Userss.ToList();
         }
     }
 
