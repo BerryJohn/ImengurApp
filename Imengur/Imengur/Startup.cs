@@ -2,6 +2,7 @@ using Imengur.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,11 +28,19 @@ namespace Imengur
         {
             services.AddControllersWithViews();
 
-            services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseSqlServer(Configuration["Data:Images:ConnectionString"]));
+            services.AddDbContext<AppIdentityDbContext>(options =>
+                options.UseSqlServer(
+                    Configuration["Data:AppIdentity:ConnectionString"]));
+            services.AddIdentity<IdentityUser, IdentityRole>()
+            .AddEntityFrameworkStores<AppIdentityDbContext>()
+            .AddDefaultTokenProviders();
+
             services.AddTransient<IImageRepository, EFImageRepository>();
             services.AddTransient<ICrudImageRepository, CrudImageRepository>();
             services.AddTransient<ICustomerImageRepository, CustomerImageRepository>();
+            services.AddTransient<IUserRepository, EFUserRepository>();
+            services.AddTransient<ICrudUserRepository, CrudUserRepository>();
+            services.AddTransient<ICustomerUserRepository, CustomerUserRepository>();
 
         }
 
@@ -50,10 +59,10 @@ namespace Imengur
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
+
             app.UseStaticFiles();
-
             app.UseRouting();
-
+            app.UseSession();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

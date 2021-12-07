@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using PagedList;
 
 namespace Imengur.Controllers
 {
@@ -22,9 +23,11 @@ namespace Imengur.Controllers
             this.customerRepository = customerRepository;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int? page)
         {
-            return View("ImageList", repository.Images);
+
+            int pageNumber = (page ?? 1);
+            return View("ImageList", repository.Images.ToPagedList(pageNumber,10));
         }
 
         public IActionResult AddForm()
@@ -32,12 +35,13 @@ namespace Imengur.Controllers
             return View();
         }
 
-        public IActionResult AddImage(Image image)
+        public IActionResult AddImage(Image image, int? page)
         {
             if(ModelState.IsValid)
             {
                 crudRepository.Add(image);
-                return View("ImageList", repository.Images);
+                int pageNumber = (page ?? 1);
+                return View("ImageList", repository.Images.ToPagedList(pageNumber, 10));
             }
             else
             {
@@ -45,24 +49,26 @@ namespace Imengur.Controllers
             }
         }
 
-        public IActionResult DeleteImage(int Id)
+        public IActionResult DeleteImage(int Id, int? page)
         {
             crudRepository.Delete(Id);
-            return View("ImageList", repository.Images);
+            int pageNumber = (page ?? 1);
+            return View("ImageList", repository.Images.ToPagedList(pageNumber, 10));
         }
         
-        public IActionResult EditForm(int Id)
+        public IActionResult EditForm(int Id, int? page)
         {
             var currentImage = crudRepository.Find(Id);
             return View("EditForm", currentImage);
         }
 
-        public IActionResult EditImage(Image image)
+        public IActionResult EditImage(Image image, int? page)
         {
             if (ModelState.IsValid)
             {
                 crudRepository.Update(image);
-                return View("ImageList", repository.Images);
+                int pageNumber = (page ?? 1);
+                return View("ImageList", repository.Images.ToPagedList(pageNumber, 10));
             }
             else
             {
@@ -77,21 +83,20 @@ namespace Imengur.Controllers
         public IActionResult SearchImage(string? title, string? id)
         {
             int newId;
-            if (!string.IsNullOrEmpty(title))
-            {
-                var result = customerRepository.FindByName(title);
-                return View("SearchList", result);
-            }
-            else if( int.TryParse(id, out newId))
+            if (int.TryParse(id, out newId))
             {
                 var result = customerRepository.FindById(newId);
                 return View("Image", result);
+            }
+            else if (!string.IsNullOrEmpty(title))
+            {
+                var result = customerRepository.FindByName(title);
+                return View("SearchList", result);
             }
             else
             {
                 return View("SearchList", customerRepository.FindAll());
             }
-
         }
     }
 }

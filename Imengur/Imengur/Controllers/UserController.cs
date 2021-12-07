@@ -9,11 +9,22 @@ namespace Imengur.Controllers
 {
     public class UserController : Controller
     {
-        static List<User> Users = new List<User>();
+        //static List<User> Users = new List<User>();
+
+        private IUserRepository repository;
+        private ICrudUserRepository crudRepository;
+        private ICustomerUserRepository customerRepository;
+
+        public UserController(IUserRepository repository, ICrudUserRepository crudUserRepository, ICustomerUserRepository customerRepository)
+        {
+            this.repository = repository;
+            this.crudRepository = crudUserRepository;
+            this.customerRepository = customerRepository;
+        }
 
         public IActionResult Index()
         {
-            return View("UserList", Users);
+            return View("UserList", repository.Users);
         }
 
         public IActionResult AddForm()
@@ -25,8 +36,8 @@ namespace Imengur.Controllers
         {
             if(ModelState.IsValid)
             {
-                Users.Add(user);
-                return View("UserList", Users);
+                crudRepository.Add(user);
+                return View("UserList", repository.Users);
             }
             else
             {
@@ -34,40 +45,49 @@ namespace Imengur.Controllers
             }
         }
 
-        public IActionResult DeleteUser(Guid Id)
+        public IActionResult DeleteUser(int Id)
         {
-            var userToRemove = Users.FirstOrDefault(el => Guid.Equals(Id, el.UID));
-            if (userToRemove != null)
-                Users.Remove(userToRemove);
-            return View("UserList", Users);
+            crudRepository.Delete(Id);
+            return View("UserList", repository.Users);
         }
 
-        public IActionResult EditUserForm(Guid Id)
+        public IActionResult EditUserForm(int Id)
         {
-            var currentUser = Users.FirstOrDefault(el => Guid.Equals(Id, el.UID));
+            var currentUser = crudRepository.Find(Id);
             return View("EditUserForm", currentUser);
         }
         
         //public IActionResult EditUser(User user, Guid Id)
-        public IActionResult EditUser(string Login, string Name, string Email, string Password, bool NewPassword, Guid Id)
+        public IActionResult EditUser(User user)
         {
              if (ModelState.IsValid)
              {
-                 Users.Find(p => p.UID == Id).Login = Login;
-                 Users.Find(p => p.UID == Id).Name = Name;
-                 Users.Find(p => p.UID == Id).Email = Email;
-                 if(NewPassword)
-                    Users.Find(p => p.UID == Id).Password = Password;
-                 return View("UserList", Users);
+                crudRepository.Update(user);
+                 return View("UserList", repository.Users);
              }
              else
              {
-                 var currentUser = Users.FirstOrDefault(el => Guid.Equals(Id, el.UID));
-                 return View("EditUserForm", currentUser);
+                return View("EditUserForm", user);
              }
-
-
             //return View("UserList", Users); 
+        }
+
+        public IActionResult SearchForm()
+        {
+            return View("SearchForm");
+        }
+
+        public IActionResult SearchUserImages(string? id)
+        {
+            int newId;
+            if (int.TryParse(id, out newId))
+            {
+
+                var result = customerRepository.FindById(newId);
+                return View("UserImages", result);
+            }
+            return View("UserList", repository.Users);
+
         }
     }
 }

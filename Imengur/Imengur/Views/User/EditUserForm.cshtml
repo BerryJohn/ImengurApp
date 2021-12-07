@@ -3,9 +3,9 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
-    ViewBag.UID = "UID";
+    ViewBag.id = "id";
 }
-<form asp-action="EditUser" method="post" asp-route-Id="@Model.UID">
+<form asp-action="EditUser" method="post" asp-route-Id="@Model.Id">
     Login
     <input class="form-control" type="text" asp-for="Login" />
     <span asp-validation-for="Login" class="text-danger"></span>
@@ -19,7 +19,7 @@
     <span asp-validation-for="Email" class="text-danger"></span>
     <br />
     New Password
-    <input class="form-control" type="password" id="Password" />
+    <input class="form-control" type="password" asp-for="Password" />
     <br />
     <span asp-validation-for="Password" class="text-danger"></span>
     <div class="form-check">
