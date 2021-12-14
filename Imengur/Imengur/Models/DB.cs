@@ -12,6 +12,7 @@ namespace Imengur.Models
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
         public DbSet<Image> Images { get; set; }
+        public DbSet<Comment> Comments { get; set; }
         public DbSet<User> Userss { get; set; }
     }
 
@@ -65,9 +66,9 @@ namespace Imengur.Models
 
         public Image Delete(int id)
         {
-            var product = _context.Images.Remove(Find(id)).Entity;
+            var image = _context.Images.Remove(Find(id)).Entity;
             _context.SaveChanges();
-            return product;
+            return image;
         }
 
         public Image Add(Image image)
@@ -217,6 +218,98 @@ namespace Imengur.Models
         public IList<User> FindAll()
         {
             return context.Userss.ToList();
+        }
+    }
+
+    #endregion
+
+    #region Comment
+    public interface ICommentRepository
+    {
+        IQueryable<Comment> Comments { get; }
+    }
+
+    public interface ICrudCommentRepository
+    {
+        Comment Find(int id);
+        Comment Delete(int id);
+        Comment Add(Comment comments);
+        Comment Update(Comment comments);
+
+        IList<Comment> FindAll();
+    }
+
+    public interface ICustomerCommentRepository
+    {
+        //IList<Comment> FindByName(string namePattern);
+        //IList<Comment> FindPage(int page, int size);
+        Comment FindById(int id);
+        IList<Comment> FindAll();
+    }
+
+    public class EFCommentRepository : ICommentRepository
+    {
+        private ApplicationDbContext _ApplicationDbContext;
+        public EFCommentRepository(ApplicationDbContext ApplicationDbContext)
+        {
+            _ApplicationDbContext = ApplicationDbContext;
+        }
+        public IQueryable<Comment> Comments => _ApplicationDbContext.Comments;
+    }
+
+    class CrudCommentRepository : ICrudCommentRepository
+    {
+        private ApplicationDbContext _context;
+        public CrudCommentRepository(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
+        public Comment Find(int id)
+        {
+            return _context.Comments.Find(id);
+        }
+
+        public Comment Delete(int id)
+        {
+            var product = _context.Comments.Remove(Find(id)).Entity;
+            _context.SaveChanges();
+            return product;
+        }
+
+        public Comment Add(Comment comment)
+        {
+            var entity = _context.Comments.Add(comment).Entity;
+            _context.SaveChanges();
+            return entity;
+        }
+
+        public Comment Update(Comment user)
+        {
+            var entity = _context.Comments.Update(user).Entity;
+            _context.SaveChanges();
+            return entity;
+        }
+
+        public IList<Comment> FindAll()
+        {
+            return _context.Comments.ToList();
+        }
+    }
+    class CustomerCommentRepository : ICustomerCommentRepository
+    {
+        private ApplicationDbContext context;
+        public CustomerCommentRepository(ApplicationDbContext ApplicationDbContext)
+        {
+            context = ApplicationDbContext;
+        }
+        public Comment FindById(int id)
+        {
+            return context.Comments.Find(id);
+        }
+        public IList<Comment> FindAll()
+        {
+            return context.Comments.ToList();
         }
     }
 

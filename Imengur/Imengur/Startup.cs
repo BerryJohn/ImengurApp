@@ -40,9 +40,14 @@ namespace Imengur
             services.AddTransient<IImageRepository, EFImageRepository>();
             services.AddTransient<ICrudImageRepository, CrudImageRepository>();
             services.AddTransient<ICustomerImageRepository, CustomerImageRepository>();
+
             services.AddTransient<IUserRepository, EFUserRepository>();
             services.AddTransient<ICrudUserRepository, CrudUserRepository>();
             services.AddTransient<ICustomerUserRepository, CustomerUserRepository>();
+
+            services.AddTransient<ICommentRepository, EFCommentRepository>();
+            services.AddTransient<ICrudCommentRepository, CrudCommentRepository>();
+            services.AddTransient<ICustomerCommentRepository, CustomerCommentRepository>();
 
         }
 
