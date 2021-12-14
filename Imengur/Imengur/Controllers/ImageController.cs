@@ -6,22 +6,27 @@ using System.Linq;
 using System.Threading.Tasks;
 using PagedList;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
 
 namespace Imengur.Controllers
 {
     public class ImageController : Controller
     {
+        private readonly IHostingEnvironment hostingEnvironment;
         //static List<Image> Images = new List<Image>();
 
         private IImageRepository repository;
         private ICrudImageRepository crudRepository;
         private ICustomerImageRepository customerRepository;
 
-        public ImageController(IImageRepository repository, ICrudImageRepository crudImageRepository, ICustomerImageRepository customerRepository)
+        public ImageController(IImageRepository repository, ICrudImageRepository crudImageRepository, ICustomerImageRepository customerRepository, IHostingEnvironment environment)
         {
             this.repository = repository;
             this.crudRepository = crudImageRepository;
             this.customerRepository = customerRepository;
+            hostingEnvironment = environment;
         }
 
         public IActionResult Index(int? page)
@@ -40,17 +45,39 @@ namespace Imengur.Controllers
         [Authorize]
         public IActionResult AddImage(Image image, int? page)
         {
-            if(ModelState.IsValid)
+            IFormFile fileUpload = image.ImageFile;
+            
+            if (ModelState.IsValid)
             {
-                crudRepository.Add(image);
-                int pageNumber = (page ?? 1);
-                return View("ImageList", repository.Images.ToPagedList(pageNumber, 10));
+                if (fileUpload != null)
+                {
+                    var uniqueFileName = GetUniqueFileName(fileUpload.FileName);
+                    var uploads = Path.Combine(hostingEnvironment.WebRootPath, "uploads");
+                    var filePath = Path.Combine(uploads, uniqueFileName);
+                    fileUpload.CopyTo(new FileStream(filePath, FileMode.Create));
+                    
+                    image.ImageData = uniqueFileName;
+                    crudRepository.Add(image);
+                    int pageNumber = (page ?? 1);
+                    return View("ImageList", repository.Images.ToPagedList(pageNumber, 10));
+                }
+                else
+                    return View("AddForm");
             }
             else
             {
                 return View("AddForm");
             }
         }
+        private string GetUniqueFileName(string fileName)
+        {
+            fileName = Path.GetFileName(fileName);
+            return Path.GetFileNameWithoutExtension(fileName)
+                      + "_"
+                      + Guid.NewGuid().ToString().Substring(0, 4)
+                      + Path.GetExtension(fileName);
+        }
+
 
         [Authorize]
         public IActionResult DeleteImage(int Id, int? page)

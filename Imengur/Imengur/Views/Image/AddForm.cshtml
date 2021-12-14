@@ -4,18 +4,16 @@
 *@
 @{
 }
-<form asp-action="AddImage" method="post">
+<form asp-action="AddImage" method="post" enctype="multipart/form-data">
     <input class="form-control" type="text" placeholder="Title" asp-for="Title" />
     <span asp-validation-for="Title" class="text-danger"></span>
     <br />
     <textarea class="form-control" placeholder="Description" asp-for="Description"></textarea>
     <span asp-validation-for="Description" class="text-danger"></span>
     <br />
-    <input class="form-control" type="file" asp-for="ImageData" />
-    <span asp-validation-for="ImageData" class="text-danger"></span>
+    <input class="form-control" type="file" asp-for="ImageFile" />
+    <span asp-validation-for="ImageFile" class="text-danger"></span>
     <br />
-   @* <select>
-        @foreach(var user in Model.)
-    </select>*@
+
     <button class="btn btn-success" type="submit">Upload image</button>
 </form>

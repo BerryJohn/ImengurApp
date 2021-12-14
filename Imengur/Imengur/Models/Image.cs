@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Imengur.Models
 {
@@ -14,10 +16,9 @@ namespace Imengur.Models
         [StringLength(100, ErrorMessage = "Title cannot be longer then 100")]
         public string Title { get; set; }
 
-        //public DateTime UploadDate = DateTime.Today;
 
         [FileExtensions(Extensions = "jpg,png")]
-        [Required(ErrorMessage = "Image is required")]
+/*        [Required(ErrorMessage/ = "Image is required")]*/
         public string ImageData { get; set; }
 
         [StringLength(100, ErrorMessage = "Description cannot be longer then 100")]
@@ -25,9 +26,10 @@ namespace Imengur.Models
 
         [Key]
         public int Id { get; set; }
-
-        //[Required]
-        //public User User { get; set; }
+   
+        [NotMapped]
+        [DataType(DataType.Upload)]
+        public IFormFile ImageFile { get; set; }
 
         public ICollection<Comment> Comments { get; set; }
     }

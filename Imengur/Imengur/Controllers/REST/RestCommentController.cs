@@ -37,14 +37,11 @@ namespace Imengur.Controllers
             return comment is null ? NotFound() : comment;
         }
 
-/*        [HttpPost]
-        public ActionResult<Comment> Post(Comment? newComment)
+        [HttpPost]
+        public ActionResult<Comment> Post([FromBody]Comment newComment)
         {
-            if (newComment == null)
-                return BadRequest();
-            crudRepository.Add(newComment);
-
-            return Ok();
-        }*/
+            //crudRepository.Add(newComment);
+            return newComment;
+        }
     }
 }
