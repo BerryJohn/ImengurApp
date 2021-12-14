@@ -58,5 +58,43 @@ namespace Imengur.Controllers
             await _signInManager.SignOutAsync();
             return Redirect(returnUrl);
         }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IActionResult> Register(Register register)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new IdentityUser
+                {
+                    UserName = register.Name,
+                    Email = register.Email,
+                    
+                };
+
+                var result = await _userManager.CreateAsync(user, register.Password);
+
+                if (result.Succeeded)
+                {
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    return RedirectToAction("Index", "Home");
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+
+                ModelState.AddModelError("", "Błąd rejestracji");
+            }
+            return View(register);
+        }
     }
 }

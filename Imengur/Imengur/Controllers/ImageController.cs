@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using PagedList;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Imengur.Controllers
 {
@@ -19,8 +20,8 @@ namespace Imengur.Controllers
         public ImageController(IImageRepository repository, ICrudImageRepository crudImageRepository, ICustomerImageRepository customerRepository)
         {
             this.repository = repository;
+            this.crudRepository = crudImageRepository;
             this.customerRepository = customerRepository;
-            crudRepository = crudImageRepository;
         }
 
         public IActionResult Index(int? page)
@@ -30,11 +31,13 @@ namespace Imengur.Controllers
             return View("ImageList", repository.Images.ToPagedList(pageNumber,10));
         }
 
+        [Authorize]
         public IActionResult AddForm()
         {
             return View();
         }
 
+        [Authorize]
         public IActionResult AddImage(Image image, int? page)
         {
             if(ModelState.IsValid)
@@ -49,19 +52,22 @@ namespace Imengur.Controllers
             }
         }
 
+        [Authorize]
         public IActionResult DeleteImage(int Id, int? page)
         {
             crudRepository.Delete(Id);
             int pageNumber = (page ?? 1);
             return View("ImageList", repository.Images.ToPagedList(pageNumber, 10));
         }
-        
+
+        [Authorize]
         public IActionResult EditForm(int Id, int? page)
         {
             var currentImage = crudRepository.Find(Id);
             return View("EditForm", currentImage);
         }
 
+        [Authorize]
         public IActionResult EditImage(Image image, int? page)
         {
             if (ModelState.IsValid)
@@ -75,6 +81,7 @@ namespace Imengur.Controllers
                 return View("EditForm", image);
             }
         }
+
         public IActionResult SearchForm()
         {
             return View("SearchForm");

@@ -1,0 +1,27 @@
+﻿@model Imengur.Models.Register
+
+
+
+<form asp-action="Register" method="post">
+    Login:
+    <input class="form-control" asp-for="Name" />
+    <span asp-validation-for="Name"></span>
+    <br />
+    E-mail:
+    <input class="form-control" asp-for="Email" />
+    <span asp-validation-for="Email"></span>
+    <br />
+    Password:
+    <input class="form-control" asp-for="Password" />
+    <span asp-validation-for="Password"></span>
+    <br />
+    Rewrite Password:
+    <input class="form-control" asp-for="ConfirmPassword" />
+    <span asp-validation-for="ConfirmPassword"></span>
+    <br />
+
+    <input asp-for="ReturnUrl" type="hidden" />
+
+    <button type="submit" class="btn btn-success">Register</button>
+    <div asp-validation-summary="All"></div>
+</form>

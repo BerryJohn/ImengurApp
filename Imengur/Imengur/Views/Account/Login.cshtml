@@ -6,10 +6,12 @@
 
 
 <form asp-action="Login" method="post">
-    <input asp-for="Name" />
+    Login:
+    <input class="form-control" asp-for="Name" />
     <span asp-validation-for="Name"></span>
     <br />
-    <input asp-for="Password" /><br />
+    Password:
+    <input class="form-control" asp-for="Password" /><br />
     <span asp-validation-for="Password"></span>
     <br />
     <input asp-for="ReturnUrl" type="hidden" />
