@@ -29,6 +29,7 @@ namespace Imengur.Models
         //[Required]
         //public User User { get; set; }
 
+        public ICollection<Comment> Comments { get; set; }
     }
 
 }
