@@ -17,20 +17,21 @@ namespace Imengur.Controllers
     public class ImageController : Controller
     {
         private readonly IHostingEnvironment hostingEnvironment;
-        //static List<Image> Images = new List<Image>();
 
         private IImageRepository repository;
         private ICrudImageRepository crudRepository;
         private ICustomerImageRepository customerRepository;
         private IBetterUserRepository userRepository;
         private ICrudBetterUserRepository crudUser;
+        private ICommentRepository commentsRepository;
 
         public ImageController(IImageRepository repository, 
                                ICrudImageRepository crudImageRepository, 
                                ICustomerImageRepository customerRepository, 
                                IHostingEnvironment environment,
                                IBetterUserRepository userRepository,
-                               ICrudBetterUserRepository crudUser
+                               ICrudBetterUserRepository crudUser,
+                               ICommentRepository commentsRepository
                                )
         {
             this.repository = repository;
@@ -39,6 +40,7 @@ namespace Imengur.Controllers
             hostingEnvironment = environment;
             this.userRepository = userRepository;
             this.crudUser = crudUser;
+            this.commentsRepository = commentsRepository;
         }
 
         public IActionResult Index(int? page)
@@ -46,8 +48,8 @@ namespace Imengur.Controllers
             ImageAndUsers mymodel = new ImageAndUsers();
 
             int pageNumber = (page ?? 1);
-
-            mymodel.Images = repository.Images.ToPagedList(pageNumber, 10);
+            var currentUserId = userRepository.BetterUsers.Where(el => el.UserName == User.Identity.Name).FirstOrDefault().Id;
+            mymodel.Images = repository.Images.Where(el => el.BetterUserId == currentUserId).ToPagedList(pageNumber, 5);
             mymodel.BetterUsers = userRepository.BetterUsers;
 
             return View("ImageList", mymodel);
@@ -75,8 +77,7 @@ namespace Imengur.Controllers
                     image.BetterUser = crudUser.Find(User.Identity.Name);
                     image.ImageData = uniqueFileName;
                     crudRepository.Add(image);
-                    int pageNumber = (page ?? 1);
-                    return View("ImageList", repository.Images.ToPagedList(pageNumber, 10));
+                    return Index(1);
                 }
                 else
                     return View("AddForm");
@@ -100,8 +101,7 @@ namespace Imengur.Controllers
         public IActionResult DeleteImage(int Id, int? page)
         {
             crudRepository.Delete(Id);
-            int pageNumber = (page ?? 1);
-            return View("ImageList", repository.Images.ToPagedList(pageNumber, 10));
+            return Index(1);
         }
 
         [Authorize]
@@ -116,9 +116,9 @@ namespace Imengur.Controllers
         {
             if (ModelState.IsValid)
             {
+                image.BetterUser = crudUser.Find(User.Identity.Name);
                 crudRepository.Update(image);
-                int pageNumber = (page ?? 1);
-                return View("ImageList", repository.Images.ToPagedList(pageNumber, 10));
+                return Index(1);
             }
             else
             {
@@ -136,8 +136,13 @@ namespace Imengur.Controllers
             int newId;
             if (int.TryParse(id, out newId))
             {
-                var result = customerRepository.FindById(newId);
-                return View("Image", result);
+                ImagesUsersComments mymodel = new ImagesUsersComments();
+
+                mymodel.Comments = commentsRepository.Comments;
+                mymodel.BetterUsers = userRepository.BetterUsers;
+                mymodel.Image = customerRepository.FindById(newId);
+
+                return View("Image", mymodel);
             }
             else if (!string.IsNullOrEmpty(title))
             {

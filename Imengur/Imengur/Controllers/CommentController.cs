@@ -10,24 +10,28 @@ namespace Imengur.Controllers
 {
     public class CommentController : Controller
     {
-        //static List<Image> Images = new List<Image>();
-
         private ICommentRepository repository;
         private ICrudCommentRepository crudRepository;
         private ICustomerCommentRepository customerRepository;
+        private ICrudBetterUserRepository crudUser;
 
-        public CommentController(ICommentRepository repository, ICrudCommentRepository crudCommentRepository, ICustomerCommentRepository customerRepository)
+        public CommentController(ICommentRepository repository, ICrudCommentRepository crudCommentRepository, ICustomerCommentRepository customerRepository, ICrudBetterUserRepository crudUser)
         {
             this.repository = repository;
             this.crudRepository = crudCommentRepository;
             this.customerRepository = customerRepository;
+            this.crudUser = crudUser;
         }
 
-
         [Authorize]
-        public IActionResult AddForm()
+        public IActionResult AddComment(Comment comment)
         {
-            return View();
+            Console.WriteLine("TEST");
+            comment.Date = DateTime.Now;
+            comment.BetterUser = crudUser.Find(User.Identity.Name);
+            crudRepository.Add(comment);
+
+            return View("~/Views/Image/SearchForm");
         }
     }
 }

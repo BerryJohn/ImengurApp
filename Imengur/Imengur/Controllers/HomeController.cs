@@ -11,16 +11,26 @@ namespace Imengur.Controllers
 {
     public class HomeController : Controller
     {
+        private IImageRepository repository;
+        private IBetterUserRepository userRepository;
+
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IImageRepository repository, IBetterUserRepository userRepository)
         {
             _logger = logger;
+            this.repository = repository;
+            this.userRepository = userRepository;
         }
 
         public IActionResult Index()
         {
-            return View();
+            ImageAndUsersHome mymodel = new ImageAndUsersHome();
+
+            mymodel.Images = repository.Images;
+            mymodel.BetterUsers = userRepository.BetterUsers;
+
+            return View(mymodel);
         }
 
         public IActionResult Privacy()

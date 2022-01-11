@@ -15,5 +15,4 @@ namespace Imengur.Models
         public IQueryable<BetterUser> BetterUsers { get; set; }
         public IPagedList<Image> Images { get; set; }
     }
-
 }

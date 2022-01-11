@@ -21,30 +21,33 @@
     <tbody>
         @foreach (var image in @Model.Images)
         {
-            <tr>
+        <tr>
+            <td>
+                @image.Id
+            </td>
+            <td>
+                @Model.BetterUsers.Where(el => el.Id == image.BetterUserId).FirstOrDefault()
+            </td>
+            <td>
+                @image.Title
+            </td>
+            <td>
+                <a asp-controller="Image" asp-action="SearchImage" asp-route-Id="@image.Id">
+                    <img style="height:100px; width:auto;" src="~/uploads/@image.ImageData" />
+                </a>
+            </td>
+            <td>
+                @image.Description
+            </td>
+            @{string currentUserName = Model.BetterUsers.Where(el => el.Id == image.BetterUserId).FirstOrDefault().ToString();}
+            @if (User.Identity.IsAuthenticated && (User.Identity.Name == currentUserName))
+            {
                 <td>
-                    @image.Id
+                    <a class="btn btn-danger" asp-controller="Image" asp-action="DeleteImage" asp-route-Id="@image.Id">Delete</a>
+                    <a class="btn btn-primary" asp-controller="Image" asp-action="EditForm" asp-route-Id="@image.Id">Edit</a>
                 </td>
-                <td>
-                    @Model.BetterUsers.Where(el => el.Id == image.BetterUserId).FirstOrDefault()
-                </td>
-                <td>
-                    @image.Title
-                </td>
-                <td>
-                    @image.ImageData
-                </td>
-                <td>
-                    @image.Description
-                </td>
-                @if (User.Identity.IsAuthenticated)
-                {
-                    <td>
-                        <a class="btn btn-danger" asp-controller="Image" asp-action="DeleteImage" asp-route-Id="@image.Id">Delete</a>
-                        <a class="btn btn-primary" asp-controller="Image" asp-action="EditForm" asp-route-Id="@image.Id">Edit</a>
-                    </td>
-                }
-            </tr>
+            }
+        </tr>
         }
     </tbody>
 </table>

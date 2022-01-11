@@ -20,7 +20,9 @@ namespace Imengur.Models
         [Key]
         public int Id { get; set; }
 
+        public int ImageId { get; set; }
         public Image Image { get; set; }
+        public string BetterUserId { get; set; }
         public BetterUser BetterUser { get; set; }
     }
 }
