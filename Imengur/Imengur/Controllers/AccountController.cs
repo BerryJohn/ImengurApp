@@ -13,10 +13,10 @@ namespace Imengur.Controllers
    
     public class AccountController : Controller
     {
-        private UserManager<IdentityUser> _userManager;
-        private SignInManager<IdentityUser> _signInManager;
+        private UserManager<BetterUser> _userManager;
+        private SignInManager<BetterUser> _signInManager;
 
-        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        public AccountController(UserManager<BetterUser> userManager, SignInManager<BetterUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -39,7 +39,7 @@ namespace Imengur.Controllers
         {
             if (ModelState.IsValid)
             {
-                IdentityUser user = await _userManager.FindByNameAsync(login.Name);
+                BetterUser user = await _userManager.FindByNameAsync(login.Name);
                 if (user != null)
                 {
                     await _signInManager.SignOutAsync();
@@ -72,11 +72,10 @@ namespace Imengur.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser
+                var user = new BetterUser
                 {
                     UserName = register.Name,
                     Email = register.Email,
-                    
                 };
 
                 var result = await _userManager.CreateAsync(user, register.Password);

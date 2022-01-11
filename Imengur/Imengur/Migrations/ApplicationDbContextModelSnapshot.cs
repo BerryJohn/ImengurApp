@@ -26,6 +26,9 @@ namespace Imengur.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("BetterUserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("Content")
                         .IsRequired()
                         .HasMaxLength(150)
@@ -39,6 +42,8 @@ namespace Imengur.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("BetterUserId");
+
                     b.HasIndex("ImageId");
 
                     b.ToTable("Comments");
@@ -50,6 +55,9 @@ namespace Imengur.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("BetterUserId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Description")
                         .HasMaxLength(100)
@@ -63,45 +71,11 @@ namespace Imengur.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("BetterUserId");
 
                     b.ToTable("Images");
-                });
-
-            modelBuilder.Entity("Imengur.Models.User", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Login")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Userss");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -167,6 +141,10 @@ namespace Imengur.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -218,6 +196,8 @@ namespace Imengur.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -300,20 +280,35 @@ namespace Imengur.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("Imengur.Models.BetterUser", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.HasDiscriminator().HasValue("BetterUser");
+                });
+
             modelBuilder.Entity("Imengur.Models.Comment", b =>
                 {
+                    b.HasOne("Imengur.Models.BetterUser", "BetterUser")
+                        .WithMany("Comments")
+                        .HasForeignKey("BetterUserId");
+
                     b.HasOne("Imengur.Models.Image", "Image")
                         .WithMany("Comments")
                         .HasForeignKey("ImageId");
+
+                    b.Navigation("BetterUser");
 
                     b.Navigation("Image");
                 });
 
             modelBuilder.Entity("Imengur.Models.Image", b =>
                 {
-                    b.HasOne("Imengur.Models.User", null)
+                    b.HasOne("Imengur.Models.BetterUser", "BetterUser")
                         .WithMany("Images")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("BetterUserId");
+
+                    b.Navigation("BetterUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -372,8 +367,10 @@ namespace Imengur.Migrations
                     b.Navigation("Comments");
                 });
 
-            modelBuilder.Entity("Imengur.Models.User", b =>
+            modelBuilder.Entity("Imengur.Models.BetterUser", b =>
                 {
+                    b.Navigation("Comments");
+
                     b.Navigation("Images");
                 });
 #pragma warning restore 612, 618

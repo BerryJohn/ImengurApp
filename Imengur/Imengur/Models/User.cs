@@ -33,7 +33,7 @@ namespace Imengur.Models
         [Key]
         public int Id { get; set; }
 
-        public ICollection<Image> Images { get; set; }
+        //public ICollection<Image> Images { get; set; }
     }
 
 }

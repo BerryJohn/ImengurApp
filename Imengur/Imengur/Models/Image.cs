@@ -31,7 +31,10 @@ namespace Imengur.Models
         [DataType(DataType.Upload)]
         public IFormFile ImageFile { get; set; }
 
+        public string BetterUserId { get; set; }
+        public BetterUser BetterUser { get; set; }
         public ICollection<Comment> Comments { get; set; }
+
     }
 
 }

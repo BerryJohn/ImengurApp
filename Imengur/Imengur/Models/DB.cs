@@ -13,7 +13,7 @@ namespace Imengur.Models
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
         public DbSet<Image> Images { get; set; }
         public DbSet<Comment> Comments { get; set; }
-        public DbSet<User> Userss { get; set; }
+        public DbSet<BetterUser> BetterUsers { get; set; }
     }
 
 
@@ -120,40 +120,40 @@ namespace Imengur.Models
     }
     #endregion
     #region User
-    public interface IUserRepository
+    public interface IBetterUserRepository
     {
-        IQueryable<User> Users { get; }
+        IQueryable<BetterUser> BetterUsers { get; }
     }
 
-    public interface ICrudUserRepository
+    public interface ICrudBetterUserRepository
     {
-        User Find(int id);
-        User Delete(int id);
+        BetterUser Find(string UserName);
+/*        User Delete(int id);
         User Add(User user);
-        User Update(User user);
+        User Update(User user);*/
 
-        IList<User> FindAll();
+        IList<BetterUser> FindAll();
     }
 
-    public interface ICustomerUserRepository
+/*    public interface ICustomerUserRepository
     {
         IList<User> FindByName(string namePattern);
         //IList<User> FindPage(int page, int size);
         User FindById(int id);
         IList<User> FindAll();
     }
-
-    public class EFUserRepository : IUserRepository
+*/
+    public class EFUserRepository : IBetterUserRepository
     {
         private ApplicationDbContext _ApplicationDbContext;
         public EFUserRepository(ApplicationDbContext ApplicationDbContext)
         {
             _ApplicationDbContext = ApplicationDbContext;
         }
-        public IQueryable<User> Users => _ApplicationDbContext.Userss;
+        public IQueryable<BetterUser> BetterUsers => _ApplicationDbContext.BetterUsers;
     }
 
-    class CrudUserRepository : ICrudUserRepository
+    class CrudUserRepository : ICrudBetterUserRepository
     {
         private ApplicationDbContext _context;
         public CrudUserRepository(ApplicationDbContext context)
@@ -161,19 +161,19 @@ namespace Imengur.Models
             _context = context;
         }
 
-        public User Find(int id)
+        public BetterUser Find(string UserNamee)
         {
-            return _context.Userss.Find(id);
+            return _context.BetterUsers.Where(el => el.UserName == UserNamee).First();
         }
-
-        public User Delete(int id)
+/*
+        public BetterUser Delete(int id)
         {
             var product = _context.Userss.Remove(Find(id)).Entity;
             _context.SaveChanges();
             return product;
         }
 
-        public User Add(User user)
+        public BetterUsersr Add(User user)
         {
             var entity = _context.Userss.Add(user).Entity;
             _context.SaveChanges();
@@ -185,14 +185,14 @@ namespace Imengur.Models
             var entity = _context.Userss.Update(user).Entity;
             _context.SaveChanges();
             return entity;
-        }
+        }*/
 
-        public IList<User> FindAll()
+        public IList<BetterUser> FindAll()
         {
-            return _context.Userss.ToList();
+            return _context.BetterUsers.ToList();
         }
     }
-    class CustomerUserRepository : ICustomerUserRepository
+/*    class CustomerUserRepository : ICustomerUserRepository
     {
 
         private ApplicationDbContext context;
@@ -206,11 +206,11 @@ namespace Imengur.Models
                     where p.Name.Contains(namePattern)
                     select p).ToList();
         }
-        /*public IList<Image> FindPage(int page, int size)
+        *//*public IList<Image> FindPage(int page, int size)
         {
             return (from p in context.Images select p).OrderBy(p => p.Title).Skip((page - 1)
            * size).Take(size).ToList();
-        } */
+        } *//*
         public User FindById(int id)
         {
             return context.Userss.Find(id);
@@ -219,7 +219,7 @@ namespace Imengur.Models
         {
             return context.Userss.ToList();
         }
-    }
+    }*/
 
     #endregion
 

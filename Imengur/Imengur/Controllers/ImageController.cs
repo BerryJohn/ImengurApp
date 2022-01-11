@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 
 namespace Imengur.Controllers
 {
@@ -20,20 +22,35 @@ namespace Imengur.Controllers
         private IImageRepository repository;
         private ICrudImageRepository crudRepository;
         private ICustomerImageRepository customerRepository;
+        private IBetterUserRepository userRepository;
+        private ICrudBetterUserRepository crudUser;
 
-        public ImageController(IImageRepository repository, ICrudImageRepository crudImageRepository, ICustomerImageRepository customerRepository, IHostingEnvironment environment)
+        public ImageController(IImageRepository repository, 
+                               ICrudImageRepository crudImageRepository, 
+                               ICustomerImageRepository customerRepository, 
+                               IHostingEnvironment environment,
+                               IBetterUserRepository userRepository,
+                               ICrudBetterUserRepository crudUser
+                               )
         {
             this.repository = repository;
             this.crudRepository = crudImageRepository;
             this.customerRepository = customerRepository;
             hostingEnvironment = environment;
+            this.userRepository = userRepository;
+            this.crudUser = crudUser;
         }
 
         public IActionResult Index(int? page)
         {
+            ImageAndUsers mymodel = new ImageAndUsers();
 
             int pageNumber = (page ?? 1);
-            return View("ImageList", repository.Images.ToPagedList(pageNumber,10));
+
+            mymodel.Images = repository.Images.ToPagedList(pageNumber, 10);
+            mymodel.BetterUsers = userRepository.BetterUsers;
+
+            return View("ImageList", mymodel);
         }
 
         [Authorize]
@@ -55,7 +72,7 @@ namespace Imengur.Controllers
                     var uploads = Path.Combine(hostingEnvironment.WebRootPath, "uploads");
                     var filePath = Path.Combine(uploads, uniqueFileName);
                     fileUpload.CopyTo(new FileStream(filePath, FileMode.Create));
-                    
+                    image.BetterUser = crudUser.Find(User.Identity.Name);
                     image.ImageData = uniqueFileName;
                     crudRepository.Add(image);
                     int pageNumber = (page ?? 1);

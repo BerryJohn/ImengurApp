@@ -17,9 +17,10 @@ namespace Imengur.Models
         [DataType(DataType.Date)]
         public DateTime Date { get; set; }
 
-        public Image Image { get; set; }
-
         [Key]
         public int Id { get; set; }
+
+        public Image Image { get; set; }
+        public BetterUser BetterUser { get; set; }
     }
 }

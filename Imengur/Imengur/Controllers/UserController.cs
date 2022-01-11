@@ -1,4 +1,4 @@
-﻿using Imengur.Models;
+﻿/*using Imengur.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -91,3 +91,4 @@ namespace Imengur.Controllers
         }
     }
 }
+*/

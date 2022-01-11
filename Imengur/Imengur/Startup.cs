@@ -31,7 +31,7 @@ namespace Imengur
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration["Data:Imengur:ConnectionString"]));
-            services.AddIdentity<IdentityUser, IdentityRole>()
+            services.AddIdentity<BetterUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
@@ -41,9 +41,12 @@ namespace Imengur
             services.AddTransient<ICrudImageRepository, CrudImageRepository>();
             services.AddTransient<ICustomerImageRepository, CustomerImageRepository>();
 
-            services.AddTransient<IUserRepository, EFUserRepository>();
-            services.AddTransient<ICrudUserRepository, CrudUserRepository>();
-            services.AddTransient<ICustomerUserRepository, CustomerUserRepository>();
+            /*            services.AddTransient<IUserRepository, EFUserRepository>();*/
+            /*            services.AddTransient<ICrudUserRepository, CrudUserRepository>();*/
+            /*            services.AddTransient<ICustomerUserRepository, CustomerUserRepository>();*/
+
+            services.AddTransient<IBetterUserRepository, EFUserRepository>();
+            services.AddTransient<ICrudBetterUserRepository, CrudUserRepository>();
 
             services.AddTransient<ICommentRepository, EFCommentRepository>();
             services.AddTransient<ICrudCommentRepository, CrudCommentRepository>();
