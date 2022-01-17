@@ -20,18 +20,43 @@
     </tbody>
 </table>
 
-<img src="~/uploads/@Model.Image.ImageData" />
+<img class="img-fluid" src="~/uploads/@Model.Image.ImageData" />
 
+<hr />
 
-<form asp-controller="Comment" asp-action="AddComment" method="post">
-    <textarea class="form-control" placeholder="Comment" asp-for="@Model.Comment.Content"></textarea>
-    <span asp-validation-for="Comment" class="text-danger"></span>
-    <br />
-    <input type="text" hidden="hidden" value="@Model.Image.Id" asp-for="@Model.Comment.ImageId"/>
-    <button class="btn btn-success" type="submit">Add comment</button>
-</form>
+@if (User.Identity.IsAuthenticated)
+    {
+    <form asp-controller="Comment" asp-action="AddComment" method="post">
+        <textarea class="form-control" placeholder="Comment" asp-for="@Model.Comment.Content"></textarea>
+        <span asp-validation-for="Comment" class="text-danger"></span>
+        <br />
+        <input type="text" hidden="hidden" value="@Model.Image.Id" asp-for="@Model.Comment.ImageId" />
+        <button class="btn btn-success" type="submit">Add comment</button>
+    </form>
+    }
+<br />
 
-@foreach (var comment in @Model.Comments)
+<ul class="list-group">
+    @{ var currentComments = @Model.Comments.Where(el => el.ImageId == Model.Image.Id);}
+    @foreach (var comment in currentComments)
+    {
+        <li class="list-group-item">
+            @{string currentUserName = Model.BetterUsers.Where(el => el.Id == comment.BetterUserId).FirstOrDefault().ToString();}
+            @if (User.Identity.IsAuthenticated && (User.Identity.Name == currentUserName))
             {
-                <div>@comment.Content</div>
+                <a asp-controller="Comment" asp-action="DeleteComment" asp-route-Id="@comment.Id" asp-route-ImageId="@comment.ImageId">
+                    <button type="button" class="close" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </a>
             }
+            @comment.Date
+            <p class="font-weight-bold">
+                @Model.BetterUsers.Where(el => el.Id == comment.BetterUserId).FirstOrDefault():    
+            </p>
+            <hr />
+            @comment.Content
+        </li>
+
+    }
+</ul>

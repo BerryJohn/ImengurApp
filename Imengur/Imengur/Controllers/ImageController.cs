@@ -100,7 +100,13 @@ namespace Imengur.Controllers
         [Authorize]
         public IActionResult DeleteImage(int Id, int? page)
         {
-            crudRepository.Delete(Id);
+            var currentImage = customerRepository.FindById(Id);
+            if (currentImage is not null)
+            {
+                var currentUser = crudUser.Find(User.Identity.Name);
+                if (currentImage.BetterUserId == currentUser.Id)
+                    crudRepository.Delete(Id);
+            }
             return Index(1);
         }
 
