@@ -178,3 +178,4 @@ C:\Users\Berry\Desktop\prog_dotnet\Imengur\Imengur\bin\Debug\net5.0\Microsoft.Ex
 C:\Users\Berry\Desktop\prog_dotnet\Imengur\Imengur\bin\Debug\net5.0\Microsoft.Extensions.Identity.Stores.dll
 C:\Users\Berry\Desktop\prog_dotnet\Imengur\Imengur\obj\Debug\net5.0\Razor\Views\Account\Login.cshtml.g.cs
 C:\Users\Berry\Desktop\prog_dotnet\Imengur\Imengur\obj\Debug\net5.0\Razor\Views\Account\Register.cshtml.g.cs
+C:\Users\Berry\Desktop\prog_dotnet\Imengur\Imengur\obj\Debug\net5.0\Razor\Views\Admin\Index.cshtml.g.cs

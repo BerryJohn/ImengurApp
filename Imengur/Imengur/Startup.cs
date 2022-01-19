@@ -1,3 +1,4 @@
+using Imengur.Enums;
 using Imengur.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -41,17 +42,18 @@ namespace Imengur
             services.AddTransient<ICrudImageRepository, CrudImageRepository>();
             services.AddTransient<ICustomerImageRepository, CustomerImageRepository>();
 
-            /*            services.AddTransient<IUserRepository, EFUserRepository>();*/
-            /*            services.AddTransient<ICrudUserRepository, CrudUserRepository>();*/
-            /*            services.AddTransient<ICustomerUserRepository, CustomerUserRepository>();*/
-
             services.AddTransient<IBetterUserRepository, EFUserRepository>();
             services.AddTransient<ICrudBetterUserRepository, CrudUserRepository>();
 
             services.AddTransient<ICommentRepository, EFCommentRepository>();
             services.AddTransient<ICrudCommentRepository, CrudCommentRepository>();
             services.AddTransient<ICustomerCommentRepository, CustomerCommentRepository>();
-
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("AdminAccess", policy => policy.RequireRole(Roles.Admin.ToString()));
+                options.AddPolicy("ModeratorAccess", policy => policy.RequireRole(Roles.Moderator.ToString()));
+                options.AddPolicy("UsersAccess", policy => policy.RequireRole(Roles.User.ToString()));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -83,7 +85,7 @@ namespace Imengur
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
-            IdentitySeedData.EnsurePopulated(app);
+            IdentitySeedData.CreateUserRoles(app);
         }
     }
 }
