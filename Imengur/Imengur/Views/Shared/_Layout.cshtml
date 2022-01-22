@@ -21,20 +21,32 @@
 
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <li class="nav-item">
-                                <a class="btn btn-dark" asp-area="" asp-controller="Image" asp-action="Index">Your images</a>
+                            <li class="nav-item btn btn-dark mr-1">
+                                Hi, @User.Identity.Name
                             </li>
                             <li class="nav-item">
-                                <a class="btn btn-dark" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
+                                <a class="btn btn-dark mr-1" asp-controller="Image" asp-action="Index">Your images</a>
+                            </li>
+                            <li>
+                                <a class="btn btn-dark mr-1" asp-controller="Image" asp-action="AddForm">Upload image</a>
+                            </li>
+                            <li>
+                                <a class="btn btn-dark mr-1" asp-controller="Image" asp-action="SearchForm">Search image</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn btn-dark mr-1" asp-controller="Account" asp-action="Logout">Logout</a>
                             </li>
                         }
                         else
                         {
-                            <li class="nav-item">
-                                <a class="btn btn-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+                            <li>
+                            <a class="btn btn-dark mr-1" asp-controller="Image" asp-action="SearchForm">Search image</a>
                             </li>
                             <li class="nav-item">
-                                <a class="btn btn-dark" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
+                                <a class="btn btn-dark mr-1" asp-controller="Account" asp-action="Login">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn btn-dark mr-1" asp-controller="Account" asp-action="Register">Register</a>
                             </li>
                         }
 

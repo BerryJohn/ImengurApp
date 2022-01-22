@@ -1,9 +1,5 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -17,8 +13,7 @@ namespace Imengur.Models
         public string Title { get; set; }
 
 
-        [FileExtensions(Extensions = "jpg,png")]
-/*        [Required(ErrorMessage/ = "Image is required")]*/
+        [FileExtensions(Extensions = "jpg,png,gif")]
         public string ImageData { get; set; }
 
         [StringLength(100, ErrorMessage = "Description cannot be longer then 100")]

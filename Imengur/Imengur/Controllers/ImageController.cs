@@ -43,12 +43,14 @@ namespace Imengur.Controllers
             this.commentsRepository = commentsRepository;
         }
 
+        [Authorize]
         public IActionResult Index(int? page)
         {
             ImageAndUsers mymodel = new ImageAndUsers();
 
             int pageNumber = (page ?? 1);
-            var currentUserId = userRepository.BetterUsers.Where(el => el.UserName == User.Identity.Name).FirstOrDefault().Id;
+            var currentUser = userRepository.BetterUsers.Where(el => el.UserName == User.Identity.Name).FirstOrDefault();
+            var currentUserId = currentUser.Id;
             mymodel.Images = repository.Images.Where(el => el.BetterUserId == currentUserId).ToPagedList(pageNumber, 5);
             mymodel.BetterUsers = userRepository.BetterUsers;
 
@@ -104,7 +106,7 @@ namespace Imengur.Controllers
             if (currentImage is not null)
             {
                 var currentUser = crudUser.Find(User.Identity.Name);
-                if (currentImage.BetterUserId == currentUser.Id)
+                if (currentImage.BetterUserId == currentUser.Id || User.IsInRole("Admin"))
                     crudRepository.Delete(Id);
             }
             return Index(1);
@@ -113,8 +115,16 @@ namespace Imengur.Controllers
         [Authorize]
         public IActionResult EditForm(int Id, int? page)
         {
+            var currentUser = crudUser.Find(User.Identity.Name);
             var currentImage = crudRepository.Find(Id);
-            return View("EditForm", currentImage);
+
+            if (currentImage is null)
+                return Index(1);
+            else
+                if(currentImage.BetterUserId == currentUser.Id)
+                    return View("EditForm", currentImage);
+                else
+                    return Index(1);
         }
 
         [Authorize]
@@ -148,7 +158,10 @@ namespace Imengur.Controllers
                 mymodel.BetterUsers = userRepository.BetterUsers;
                 mymodel.Image = customerRepository.FindById(newId);
 
-                return View("Image", mymodel);
+                if(mymodel.Image is not null)
+                    return View("Image", mymodel);
+                else
+                    return View("SearchForm");
             }
             else if (!string.IsNullOrEmpty(title))
             {

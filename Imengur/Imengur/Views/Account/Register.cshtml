@@ -3,20 +3,16 @@
 
 
 <form asp-action="Register" method="post">
-    Login:
-    <input class="form-control" asp-for="Name" />
+    <input class="form-control" asp-for="Name" placeholder="Login"/>
     <span asp-validation-for="Name"></span>
     <br />
-    E-mail:
-    <input class="form-control" asp-for="Email" />
+    <input class="form-control" asp-for="Email" placeholder="Email"/>
     <span asp-validation-for="Email"></span>
     <br />
-    Password:
-    <input class="form-control" asp-for="Password" />
+    <input class="form-control" asp-for="Password" placeholder="Password"/>
     <span asp-validation-for="Password"></span>
     <br />
-    Rewrite Password:
-    <input class="form-control" asp-for="ConfirmPassword" />
+    <input class="form-control" asp-for="ConfirmPassword" placeholder="Confirm password"/>
     <span asp-validation-for="ConfirmPassword"></span>
     <br />
 

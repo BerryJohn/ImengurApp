@@ -2,30 +2,51 @@
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
-
+@{string currentImageUserName = Model.BetterUsers.Where(el => el.Id == @Model.Image.BetterUserId).FirstOrDefault().ToString();}
 <table class="table">
     <thead class="thead-dark">
         <tr>
             <th scope="col">Title</th>
             <th scope="col">Uploaded by</th>
-            <th scope="col">Description</th>
+            @if ((@User.Identity.IsAuthenticated && User.Identity.Name == currentImageUserName) || (User.IsInRole("Admin")))
+            {
+        <th scope="col">
+            Options
+            @if (User.IsInRole("Admin") && User.Identity.Name != currentImageUserName)
+            {
+                <a>(Admin)</a>
+            }
+        </th>
+            }
         </tr>
     </thead>
     <tbody>
         <tr>
             <td>@Model.Image.Title</td>
             <td>@Model.BetterUsers.Where(el => el.Id == Model.Image.BetterUserId).FirstOrDefault()</td>
-            <td>@Model.Image.Description</td>
+            @if ((@User.Identity.IsAuthenticated && User.Identity.Name == currentImageUserName) || (User.IsInRole("Admin")))
+            {
+                <td>
+                    <a class="btn btn-danger" asp-controller="Image" asp-action="DeleteImage" asp-route-Id="@Model.Image.Id">Delete</a>
+                    <a class="btn btn-primary" asp-controller="Image" asp-action="EditForm" asp-route-Id="@Model.Image.Id">Edit</a>
+                </td>
+            }
         </tr>
     </tbody>
 </table>
-
-<img class="img-fluid" src="~/uploads/@Model.Image.ImageData" />
-
+<div class="container d-flex justify-content-center">
+    <img class="img-fluid" src="~/uploads/@Model.Image.ImageData" />
+</div>
+@if (@Model.Image.Description is not null)
+{
+    <div class="container border p-1 mt-1">
+        @Model.Image.Description
+    </div>
+}
 <hr />
 
 @if (User.Identity.IsAuthenticated)
-    {
+{
     <form asp-controller="Comment" asp-action="AddComment" method="post">
         <textarea class="form-control" placeholder="Comment" asp-for="@Model.Comment.Content"></textarea>
         <span asp-validation-for="Comment" class="text-danger"></span>
@@ -33,30 +54,30 @@
         <input type="text" hidden="hidden" value="@Model.Image.Id" asp-for="@Model.Comment.ImageId" />
         <button class="btn btn-success" type="submit">Add comment</button>
     </form>
-    }
+}
 <br />
 
 <ul class="list-group">
     @{ var currentComments = @Model.Comments.Where(el => el.ImageId == Model.Image.Id);}
     @foreach (var comment in currentComments)
     {
-        <li class="list-group-item">
-            @{string currentUserName = Model.BetterUsers.Where(el => el.Id == comment.BetterUserId).FirstOrDefault().ToString();}
-            @if (User.Identity.IsAuthenticated && (User.Identity.Name == currentUserName))
-            {
-                <a asp-controller="Comment" asp-action="DeleteComment" asp-route-Id="@comment.Id" asp-route-ImageId="@comment.ImageId">
-                    <button type="button" class="close" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </a>
-            }
-            @comment.Date
-            <p class="font-weight-bold">
-                @Model.BetterUsers.Where(el => el.Id == comment.BetterUserId).FirstOrDefault():    
-            </p>
-            <hr />
-            @comment.Content
-        </li>
+    <li class="list-group-item">
+        @{string currentUserName = Model.BetterUsers.Where(el => el.Id == comment.BetterUserId).FirstOrDefault().ToString();}
+        @if ((User.Identity.IsAuthenticated && User.Identity.Name == currentUserName) || User.IsInRole("Admin") || User.IsInRole("Moderator"))
+        {
+            <a asp-controller="Comment" asp-action="DeleteComment" asp-route-Id="@comment.Id" asp-route-ImageId="@comment.ImageId">
+                <button type="button" class="close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </a>
+        }
+        @comment.Date
+        <p class="font-weight-bold">
+            @Model.BetterUsers.Where(el => el.Id == comment.BetterUserId).FirstOrDefault():
+        </p>
+        <hr />
+        @comment.Content
+    </li>
 
     }
 </ul>

@@ -10,30 +10,28 @@
     <tr>
         <th>Image ID</th>
         <th>Title</th>
-        @*<th>Date</th>*@
         <th>Image</th>
         <th>Description</th>
     </tr>
     <tbody>
         @foreach (var image in @Model)
         {
-            <tr>
-                <td>
-                    @image.Id
-                </td>
-                <td>
-                    @image.Title
-                </td>
-                @*<td>
-                        @image.UploadDate
-                    </td>*@
-                <td>
-                    @image.ImageData
-                </td>
-                <td>
-                    @image.Description
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @image.Id
+            </td>
+            <td>
+                @image.Title
+            </td>
+            <td>
+                <a asp-controller="Image" asp-action="SearchImage" asp-route-Id="@image.Id">
+                    <img style="height:100px; width:auto;" src="~/uploads/@image.ImageData" />
+                </a>
+            </td>
+            <td>
+                @image.Description
+            </td>
+        </tr>
         }
     </tbody>
 </table>

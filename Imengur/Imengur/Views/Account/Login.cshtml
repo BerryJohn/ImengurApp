@@ -1,16 +1,13 @@
 ﻿@model Imengur.Models.Login
 
 <form asp-action="Login" method="post">
-    Login:
-    <input class="form-control" asp-for="Name" />
+    <input class="form-control" asp-for="Name" placeholder="Login"/>
     <span asp-validation-for="Name"></span>
     <br />
-    Password:
-    <input class="form-control" asp-for="Password" /><br />
-    <span asp-validation-for="Password"></span>
+    <input class="form-control" asp-for="Password" placeholder="Password"/>
     <br />
+    <span asp-validation-for="Password"></span>
     <input asp-for="ReturnUrl" type="hidden" />
-
     <button type="submit" class="btn btn-success">Login</button>
 
     <div asp-validation-summary="All"></div>

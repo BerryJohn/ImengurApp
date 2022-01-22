@@ -37,7 +37,8 @@ namespace Imengur.Controllers
         {
             comment.Date = DateTime.Now;
             comment.BetterUser = crudUser.Find(User.Identity.Name);
-            crudRepository.Add(comment);
+            if(comment.Content is not null)
+                crudRepository.Add(comment);
 
             ImagesUsersComments mymodel = new ImagesUsersComments();
 
@@ -51,7 +52,9 @@ namespace Imengur.Controllers
         [Authorize]
         public IActionResult DeleteComment(int Id, int ImageId)
         {
-           if(customerRepository.FindById(Id) is not null)
+            var currentUser = crudUser.Find(User.Identity.Name);
+            var currentComment = customerRepository.FindById(Id);
+            if ((currentComment is not null && currentUser.Id == currentComment.BetterUserId )|| User.IsInRole("Admin") || User.IsInRole("Moderator"))
                 crudRepository.Delete(Id);
 
             ImagesUsersComments mymodel = new ImagesUsersComments();
