@@ -16,6 +16,8 @@ namespace Imengur.Controllers
         private UserManager<BetterUser> _userManager;
         private SignInManager<BetterUser> _signInManager;
 
+
+
         public AccountController(UserManager<BetterUser> userManager, SignInManager<BetterUser> signInManager)
         {
             _userManager = userManager;

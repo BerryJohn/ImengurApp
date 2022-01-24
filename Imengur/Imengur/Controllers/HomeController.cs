@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
+using PagedList;
+using System.Linq;
 
 namespace Imengur.Controllers
 {
@@ -19,11 +21,13 @@ namespace Imengur.Controllers
             this.userRepository = userRepository;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int pageNumber = 1)
         {
-            ImageAndUsersHome mymodel = new ImageAndUsersHome();
+            ImageAndUsers mymodel = new ImageAndUsers();
 
-            mymodel.Images = repository.Images;
+            var images = repository.Images.ToList();
+
+            mymodel.Images = Enumerable.Reverse(images).ToPagedList(pageNumber, 5);
             mymodel.BetterUsers = userRepository.BetterUsers;
 
             return View(mymodel);

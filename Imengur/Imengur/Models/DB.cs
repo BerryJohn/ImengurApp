@@ -36,7 +36,6 @@ namespace Imengur.Models
     public interface ICustomerImageRepository
     {
         IList<Image> FindByName(string namePattern);
-        //IList<Image> FindPage(int page, int size);
         Image FindById(int id);
         IList<Image> FindAll();
     }
@@ -104,11 +103,6 @@ namespace Imengur.Models
                     where p.Title.Contains(namePattern)
                     select p).ToList();
         }
-        /*public IList<Image> FindPage(int page, int size)
-        {
-            return (from p in context.Images select p).OrderBy(p => p.Title).Skip((page - 1)
-           * size).Take(size).ToList();
-        } */
         public Image FindById(int id)
         {
             return context.Images.Find(id);
@@ -128,21 +122,11 @@ namespace Imengur.Models
     public interface ICrudBetterUserRepository
     {
         BetterUser Find(string UserName);
-/*        User Delete(int id);
-        User Add(User user);
-        User Update(User user);*/
-
         IList<BetterUser> FindAll();
+
+        BetterUser Delete(string Name);
     }
 
-/*    public interface ICustomerUserRepository
-    {
-        IList<User> FindByName(string namePattern);
-        //IList<User> FindPage(int page, int size);
-        User FindById(int id);
-        IList<User> FindAll();
-    }
-*/
     public class EFUserRepository : IBetterUserRepository
     {
         private ApplicationDbContext _ApplicationDbContext;
@@ -161,66 +145,29 @@ namespace Imengur.Models
             _context = context;
         }
 
-        public BetterUser Find(string UserNamee)
+        public BetterUser Find(string UserName)
         {
-            return _context.BetterUsers.Where(el => el.UserName == UserNamee).First();
-        }
-/*
-        public BetterUser Delete(int id)
-        {
-            var product = _context.Userss.Remove(Find(id)).Entity;
-            _context.SaveChanges();
-            return product;
+            return _context.BetterUsers.Where(el => el.UserName == UserName).First();
         }
 
-        public BetterUsersr Add(User user)
+        public BetterUser Delete(string Name)
         {
-            var entity = _context.Userss.Add(user).Entity;
-            _context.SaveChanges();
-            return entity;
-        }
+            var user = _context.BetterUsers.Where(e => e.UserName == Name).First();
+            foreach (var image in _context.Images.Where(e => e.BetterUserId == user.Id))
+                _context.Remove(image); 
+            foreach (var comment in _context.Comments.Where(e => e.BetterUserId == user.Id))
+                _context.Remove(comment);
 
-        public User Update(User user)
-        {
-            var entity = _context.Userss.Update(user).Entity;
+            _context.Remove(user);
             _context.SaveChanges();
-            return entity;
-        }*/
+            return user;
+        }
 
         public IList<BetterUser> FindAll()
         {
             return _context.BetterUsers.ToList();
         }
     }
-/*    class CustomerUserRepository : ICustomerUserRepository
-    {
-
-        private ApplicationDbContext context;
-        public CustomerUserRepository(ApplicationDbContext ApplicationDbContext)
-        {
-            context = ApplicationDbContext;
-        }
-        public IList<User> FindByName(string namePattern)
-        {
-            return (from p in context.Userss
-                    where p.Name.Contains(namePattern)
-                    select p).ToList();
-        }
-        *//*public IList<Image> FindPage(int page, int size)
-        {
-            return (from p in context.Images select p).OrderBy(p => p.Title).Skip((page - 1)
-           * size).Take(size).ToList();
-        } *//*
-        public User FindById(int id)
-        {
-            return context.Userss.Find(id);
-        }
-        public IList<User> FindAll()
-        {
-            return context.Userss.ToList();
-        }
-    }*/
-
     #endregion
 
     #region Comment
@@ -241,8 +188,6 @@ namespace Imengur.Models
 
     public interface ICustomerCommentRepository
     {
-        //IList<Comment> FindByName(string namePattern);
-        //IList<Comment> FindPage(int page, int size);
         Comment FindById(int id);
         IList<Comment> FindAll();
     }

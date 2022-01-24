@@ -1,22 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Imengur.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using PagedList;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
-using System.Security.Claims;
+
 
 namespace Imengur.Controllers
 {
     public class ImageController : Controller
     {
-        private readonly IHostingEnvironment hostingEnvironment;
+        private readonly IWebHostEnvironment hostingEnvironment;
 
         private IImageRepository repository;
         private ICrudImageRepository crudRepository;
@@ -28,7 +25,7 @@ namespace Imengur.Controllers
         public ImageController(IImageRepository repository, 
                                ICrudImageRepository crudImageRepository, 
                                ICustomerImageRepository customerRepository, 
-                               IHostingEnvironment environment,
+                               IWebHostEnvironment environment,
                                IBetterUserRepository userRepository,
                                ICrudBetterUserRepository crudUser,
                                ICommentRepository commentsRepository
@@ -44,17 +41,27 @@ namespace Imengur.Controllers
         }
 
         [Authorize]
-        public IActionResult Index(int? page)
+        public IActionResult Index(int pageNumber = 1)
         {
             ImageAndUsers mymodel = new ImageAndUsers();
 
-            int pageNumber = (page ?? 1);
             var currentUser = userRepository.BetterUsers.Where(el => el.UserName == User.Identity.Name).FirstOrDefault();
             var currentUserId = currentUser.Id;
             mymodel.Images = repository.Images.Where(el => el.BetterUserId == currentUserId).ToPagedList(pageNumber, 5);
             mymodel.BetterUsers = userRepository.BetterUsers;
 
-            return View("ImageList", mymodel);
+            return View("MyImageList", mymodel);
+        }
+        
+        public IActionResult AllImages(int pageNumber = 1)
+        {
+            ImageAndUsers mymodel = new ImageAndUsers();
+
+
+            mymodel.Images = repository.Images.ToPagedList(pageNumber, 5);
+            mymodel.BetterUsers = userRepository.BetterUsers;
+
+            return View("AllImageList", mymodel);
         }
 
         [Authorize]
@@ -100,7 +107,7 @@ namespace Imengur.Controllers
 
 
         [Authorize]
-        public IActionResult DeleteImage(int Id, int? page)
+        public IActionResult DeleteImage(int Id, string viewPage = "AllImageList")
         {
             var currentImage = customerRepository.FindById(Id);
             if (currentImage is not null)
@@ -109,7 +116,10 @@ namespace Imengur.Controllers
                 if (currentImage.BetterUserId == currentUser.Id || User.IsInRole("Admin"))
                     crudRepository.Delete(Id);
             }
-            return Index(1);
+            if (viewPage == "AllImageList")
+                return AllImages();
+            else
+                return Index(1);
         }
 
         [Authorize]

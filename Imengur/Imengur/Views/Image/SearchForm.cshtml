@@ -1,14 +1,11 @@
 ﻿@model Imengur.Models.Image
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
 @{
+    ViewData["Title"] = "Search";
 }
-
 <form asp-action="SearchImage" method="post">
     <input class="form-control" type="text" placeholder="Title" asp-for="@Model.Title" />
     <br />
-    <input class="form-control" type="text" placeholder="ID" id="id" asp-for="@Model.Id"/>
+    <input class="form-control" type="text" placeholder="ID" id="id" asp-for="@Model.Id" />
     <br />
     <button class="btn btn-success" type="submit">Search</button>
 </form>

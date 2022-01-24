@@ -1,18 +1,18 @@
 ﻿@model Imengur.Models.Register
-
-
-
+@{
+    ViewData["Title"] = "Register";
+}
 <form asp-action="Register" method="post">
-    <input class="form-control" asp-for="Name" placeholder="Login"/>
+    <input class="form-control" asp-for="Name" placeholder="Login" />
     <span asp-validation-for="Name"></span>
     <br />
-    <input class="form-control" asp-for="Email" placeholder="Email"/>
+    <input class="form-control" asp-for="Email" placeholder="Email" />
     <span asp-validation-for="Email"></span>
     <br />
-    <input class="form-control" asp-for="Password" placeholder="Password"/>
+    <input class="form-control" asp-for="Password" placeholder="Password" />
     <span asp-validation-for="Password"></span>
     <br />
-    <input class="form-control" asp-for="ConfirmPassword" placeholder="Confirm password"/>
+    <input class="form-control" asp-for="ConfirmPassword" placeholder="Confirm password" />
     <span asp-validation-for="ConfirmPassword"></span>
     <br />
 

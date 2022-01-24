@@ -1,10 +1,7 @@
 ﻿@model IList<Imengur.Models.Image>
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
 @{
+    ViewData["Title"] = "Search results";
 }
-
 <h1>Uploaded images</h1>
 <table class="table">
     <tr>
@@ -16,22 +13,22 @@
     <tbody>
         @foreach (var image in @Model)
         {
-        <tr>
-            <td>
-                @image.Id
-            </td>
-            <td>
-                @image.Title
-            </td>
-            <td>
-                <a asp-controller="Image" asp-action="SearchImage" asp-route-Id="@image.Id">
-                    <img style="height:100px; width:auto;" src="~/uploads/@image.ImageData" />
-                </a>
-            </td>
-            <td>
-                @image.Description
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    @image.Id
+                </td>
+                <td>
+                    @image.Title
+                </td>
+                <td>
+                    <a asp-controller="Image" asp-action="SearchImage" asp-route-Id="@image.Id">
+                        <img style="height:100px; width:auto;" src="~/uploads/@image.ImageData" />
+                    </a>
+                </td>
+                <td>
+                    @image.Description
+                </td>
+            </tr>
         }
     </tbody>
 </table>

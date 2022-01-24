@@ -10,9 +10,9 @@ using PagedList;
 
 namespace Imengur.Models
 {
-    public class ImageAndUsersHome
+    public class ImageAndUsers
     {
         public IQueryable<BetterUser> BetterUsers { get; set; }
-        public IQueryable<Image> Images { get; set; }
+        public IPagedList<Image> Images { get; set; }
     }
 }

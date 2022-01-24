@@ -1,8 +1,6 @@
 ﻿@model Imengur.Models.Image
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
 @{
+    ViewData["Title"] = "Edit Image";
 }
 <form asp-action="EditImage" method="post" asp-route-Id="@Model.Id">
     <input class="form-control" type="text" placeholder="Title" asp-for="Title" />

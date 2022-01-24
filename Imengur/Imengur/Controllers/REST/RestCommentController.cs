@@ -24,15 +24,6 @@ namespace Imengur.Controllers
             if (id == null)
                 return BadRequest();
 
-            if (id == 2137)
-            {
-                return new Comment()
-                {
-                    Id = 2137,
-                    Date = new DateTime(),
-                    Content = "POLEK"
-                };
-            }
             Comment comment = crudRepository.Find((int)id);
             return comment is null ? NotFound() : comment;
         }

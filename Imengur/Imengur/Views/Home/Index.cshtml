@@ -1,6 +1,7 @@
-﻿@model Imengur.Models.ImageAndUsersHome;
+﻿@model Imengur.Models.ImageAndUsers;
+@using PagedList.Mvc;
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home";
 }
 
 <div class="text-center">
@@ -13,3 +14,50 @@
         </a>
     }
 </div>
+
+
+<hr />
+<nav class="d-flex justify-content-center">
+    <ul class="pagination">
+        <li class="page-item"><a class="page-link" asp-action="index" asp-route-pageNumber="@(Model.Images.PageNumber > 1 ? Model.Images.PageNumber -1 : 1)">Previous</a></li>
+        @if (Model.Images.PageCount == 0 || Model.Images.PageCount == 1)
+        {
+            <li class="page-item active"><a class="page-link" asp-action="index" asp-route-pageNumber="@(Model.Images.PageNumber)">@(Model.Images.PageNumber)</a></li>
+        }
+        else if (Model.Images.PageCount == 2)
+        {
+            if (Model.Images.PageNumber == 1)
+            {
+                <li class="page-item active"><a class="page-link" asp-action="index" asp-route-pageNumber="1">1</a></li>
+                <li class="page-item"><a class="page-link" asp-action="index" asp-route-pageNumber="2">2</a></li>
+            }
+            else
+            {
+                <li class="page-item"><a class="page-link" asp-action="index" asp-route-pageNumber="1">1</a></li>
+                <li class="page-item active"><a class="page-link" asp-action="index" asp-route-pageNumber="2">2</a></li>
+            }
+        }
+        else
+        {
+            if (Model.Images.PageNumber == 1)
+            {
+                <li class="page-item active"><a class="page-link" asp-action="index" asp-route-pageNumber="1">1</a></li>
+                <li class="page-item"><a class="page-link" asp-action="index" asp-route-pageNumber="2">2</a></li>
+                <li class="page-item"><a class="page-link" asp-action="index" asp-route-pageNumber="@(Model.Images.PageCount)">@(Model.Images.PageCount)</a></li>
+            }
+            else if (Model.Images.PageCount > Model.Images.PageNumber)
+            {
+                <li class="page-item"><a class="page-link" asp-action="index" asp-route-pageNumber="1">1</a></li>
+                <li class="page-item active"><a class="page-link" asp-action="index" asp-route-pageNumber="@(Model.Images.PageNumber)">@(Model.Images.PageNumber)</a></li>
+                <li class="page-item"><a class="page-link" asp-action="index" asp-route-pageNumber="@(Model.Images.PageCount)">@(Model.Images.PageCount)</a></li>
+            }
+            else
+            {
+                <li class="page-item"><a class="page-link" asp-action="index" asp-route-pageNumber="1">1</a></li>
+                <li class="page-item"><a class="page-link" asp-action="index" asp-route-pageNumber="@(Model.Images.PageNumber -1)">@(Model.Images.PageNumber -1)</a></li>
+                <li class="page-item active"><a class="page-link" asp-action="index" asp-route-pageNumber="@(Model.Images.PageCount)">@(Model.Images.PageCount)</a></li>
+            }
+        }
+        <li class="page-item"><a class="page-link" asp-action="index" asp-route-pageNumber="@(Model.Images.PageCount > Model.Images.PageNumber ? Model.Images.PageNumber +1 : @Model.Images.PageCount)">Next</a></li>
+    </ul>
+</nav>

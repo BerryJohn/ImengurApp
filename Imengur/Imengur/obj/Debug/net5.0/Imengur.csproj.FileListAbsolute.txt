@@ -71,9 +71,6 @@ C:\Users\Berry\Desktop\prog_dotnet\Imengur\Imengur\obj\Debug\net5.0\Razor\Views\
 C:\Users\Berry\Desktop\prog_dotnet\Imengur\Imengur\obj\Debug\net5.0\Razor\Views\Shared\Error.cshtml.g.cs
 C:\Users\Berry\Desktop\prog_dotnet\Imengur\Imengur\obj\Debug\net5.0\Razor\Views\Shared\_Layout.cshtml.g.cs
 C:\Users\Berry\Desktop\prog_dotnet\Imengur\Imengur\obj\Debug\net5.0\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
-C:\Users\Berry\Desktop\prog_dotnet\Imengur\Imengur\obj\Debug\net5.0\Razor\Views\User\AddForm.cshtml.g.cs
-C:\Users\Berry\Desktop\prog_dotnet\Imengur\Imengur\obj\Debug\net5.0\Razor\Views\User\Index.cshtml.g.cs
-C:\Users\Berry\Desktop\prog_dotnet\Imengur\Imengur\obj\Debug\net5.0\Razor\Views\User\UserList.cshtml.g.cs
 C:\Users\Berry\Desktop\prog_dotnet\Imengur\Imengur\obj\Debug\net5.0\Razor\Views\_ViewImports.cshtml.g.cs
 C:\Users\Berry\Desktop\prog_dotnet\Imengur\Imengur\obj\Debug\net5.0\Razor\Views\_ViewStart.cshtml.g.cs
 C:\Users\Berry\Desktop\prog_dotnet\Imengur\Imengur\obj\Debug\net5.0\Imengur.RazorTargetAssemblyInfo.cache
@@ -86,13 +83,11 @@ C:\Users\Berry\Desktop\prog_dotnet\Imengur\Imengur\obj\Debug\net5.0\Imengur.genr
 C:\Users\Berry\Desktop\prog_dotnet\Imengur\Imengur\obj\Debug\net5.0\Imengur.csproj.CopyComplete
 C:\Users\Berry\Desktop\prog_dotnet\Imengur\Imengur\obj\Debug\net5.0\Razor\Views\Image\Index.cshtml.g.cs
 C:\Users\Berry\Desktop\prog_dotnet\Imengur\Imengur\obj\Debug\net5.0\Razor\Views\Image\AddForm.cshtml.g.cs
-C:\Users\Berry\Desktop\prog_dotnet\Imengur\Imengur\obj\Debug\net5.0\Razor\Views\Image\ImageList.cshtml.g.cs
 D:\Users\jan.bak\Desktop\prog_dotnet\Imengur\Imengur\obj\Debug\net5.0\Razor\Views\Image\AddForm.cshtml.g.cs
 D:\Users\jan.bak\Desktop\prog_dotnet\Imengur\Imengur\obj\Debug\net5.0\Razor\Views\Image\ImageList.cshtml.g.cs
 D:\Users\jan.bak\Desktop\prog_dotnet\Imengur\Imengur\obj\Debug\net5.0\Razor\Views\Image\Index.cshtml.g.cs
 D:\Users\jan.bak\Desktop\prog_dotnet\Imengur\Imengur\obj\Debug\net5.0\Razor\Views\Image\EditForm.cshtml.g.cs
 C:\Users\Berry\Desktop\prog_dotnet\Imengur\Imengur\obj\Debug\net5.0\Razor\Views\Image\EditForm.cshtml.g.cs
-C:\Users\Berry\Desktop\prog_dotnet\Imengur\Imengur\obj\Debug\net5.0\Razor\Views\User\EditUserForm.cshtml.g.cs
 C:\Users\Berry\Desktop\prog_dotnet\Imengur\Imengur\bin\Debug\net5.0\Microsoft.VisualStudio.Web.BrowserLink.dll
 D:\Users\jan.bak\Desktop\prog_dotnet\Imengur\Imengur\bin\Debug\net5.0\Humanizer.dll
 D:\Users\jan.bak\Desktop\prog_dotnet\Imengur\Imengur\bin\Debug\net5.0\Microsoft.Data.SqlClient.dll
@@ -168,9 +163,6 @@ C:\Users\Berry\Desktop\prog_dotnet\Imengur\Imengur\obj\Debug\net5.0\Razor\Views\
 C:\Users\Berry\Desktop\prog_dotnet\Imengur\Imengur\obj\Debug\net5.0\Razor\Views\Image\SearchList.cshtml.g.cs
 C:\Users\Berry\Desktop\prog_dotnet\Imengur\Imengur\bin\Debug\net5.0\PagedList.dll
 C:\Users\Berry\Desktop\prog_dotnet\Imengur\Imengur\bin\Debug\net5.0\PagedList.Mvc.dll
-C:\Users\Berry\Desktop\prog_dotnet\Imengur\Imengur\obj\Debug\net5.0\Razor\Views\User\SearchForm.cshtml.g.cs
-C:\Users\Berry\Desktop\prog_dotnet\Imengur\Imengur\obj\Debug\net5.0\Razor\Views\User\SearchList.cshtml.g.cs
-C:\Users\Berry\Desktop\prog_dotnet\Imengur\Imengur\obj\Debug\net5.0\Razor\Views\User\UserImages.cshtml.g.cs
 C:\Users\Berry\Desktop\prog_dotnet\Imengur\Imengur\bin\Debug\net5.0\Microsoft.AspNetCore.Cryptography.Internal.dll
 C:\Users\Berry\Desktop\prog_dotnet\Imengur\Imengur\bin\Debug\net5.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
 C:\Users\Berry\Desktop\prog_dotnet\Imengur\Imengur\bin\Debug\net5.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
@@ -179,3 +171,6 @@ C:\Users\Berry\Desktop\prog_dotnet\Imengur\Imengur\bin\Debug\net5.0\Microsoft.Ex
 C:\Users\Berry\Desktop\prog_dotnet\Imengur\Imengur\obj\Debug\net5.0\Razor\Views\Account\Login.cshtml.g.cs
 C:\Users\Berry\Desktop\prog_dotnet\Imengur\Imengur\obj\Debug\net5.0\Razor\Views\Account\Register.cshtml.g.cs
 C:\Users\Berry\Desktop\prog_dotnet\Imengur\Imengur\obj\Debug\net5.0\Razor\Views\Admin\Index.cshtml.g.cs
+C:\Users\Berry\Desktop\prog_dotnet\Imengur\Imengur\obj\Debug\net5.0\Razor\Views\Admin\AdminUserPanel.cshtml.g.cs
+C:\Users\Berry\Desktop\prog_dotnet\Imengur\Imengur\obj\Debug\net5.0\Razor\Views\Image\AllImageList.cshtml.g.cs
+C:\Users\Berry\Desktop\prog_dotnet\Imengur\Imengur\obj\Debug\net5.0\Razor\Views\Image\MyImageList.cshtml.g.cs

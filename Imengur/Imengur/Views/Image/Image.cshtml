@@ -1,7 +1,7 @@
 ﻿@model Imengur.Models.ImagesUsersComments
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+@{
+    ViewData["Title"] = @Model.Image.Title;
+}
 @{string currentImageUserName = Model.BetterUsers.Where(el => el.Id == @Model.Image.BetterUserId).FirstOrDefault().ToString();}
 <table class="table">
     <thead class="thead-dark">
@@ -10,13 +10,13 @@
             <th scope="col">Uploaded by</th>
             @if ((@User.Identity.IsAuthenticated && User.Identity.Name == currentImageUserName) || (User.IsInRole("Admin")))
             {
-        <th scope="col">
-            Options
-            @if (User.IsInRole("Admin") && User.Identity.Name != currentImageUserName)
-            {
-                <a>(Admin)</a>
-            }
-        </th>
+                <th scope="col">
+                    Options
+                    @if (User.IsInRole("Admin") && User.Identity.Name != currentImageUserName)
+                    {
+                        <a>(Admin)</a>
+                    }
+                </th>
             }
         </tr>
     </thead>
@@ -61,23 +61,23 @@
     @{ var currentComments = @Model.Comments.Where(el => el.ImageId == Model.Image.Id);}
     @foreach (var comment in currentComments)
     {
-    <li class="list-group-item">
-        @{string currentUserName = Model.BetterUsers.Where(el => el.Id == comment.BetterUserId).FirstOrDefault().ToString();}
-        @if ((User.Identity.IsAuthenticated && User.Identity.Name == currentUserName) || User.IsInRole("Admin") || User.IsInRole("Moderator"))
-        {
-            <a asp-controller="Comment" asp-action="DeleteComment" asp-route-Id="@comment.Id" asp-route-ImageId="@comment.ImageId">
-                <button type="button" class="close" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </a>
-        }
-        @comment.Date
-        <p class="font-weight-bold">
-            @Model.BetterUsers.Where(el => el.Id == comment.BetterUserId).FirstOrDefault():
-        </p>
-        <hr />
-        @comment.Content
-    </li>
+        <li class="list-group-item">
+            @{string currentUserName = Model.BetterUsers.Where(el => el.Id == comment.BetterUserId).FirstOrDefault().ToString();}
+            @if ((User.Identity.IsAuthenticated && User.Identity.Name == currentUserName) || User.IsInRole("Admin") || User.IsInRole("Moderator"))
+            {
+                <a asp-controller="Comment" asp-action="DeleteComment" asp-route-Id="@comment.Id" asp-route-ImageId="@comment.ImageId">
+                    <button type="button" class="close" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </a>
+            }
+            @comment.Date
+            <p class="font-weight-bold">
+                @Model.BetterUsers.Where(el => el.Id == comment.BetterUserId).FirstOrDefault():
+            </p>
+            <hr />
+            @comment.Content
+        </li>
 
     }
 </ul>
