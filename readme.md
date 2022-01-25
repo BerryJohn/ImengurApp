@@ -55,5 +55,6 @@ Po zalogowaniu się, mamy opcję dodawania własnych zdjęć oraz komentowania i
 
 ---
 Projekt polegał na stworzeniu aplikacji do uploadowania własnych zdjęć/gifów, na wzór strony `www.imgur.com`. Dostęp do tych funkcji mają wyłączenie zalogowani użytkownicy. Użytkownik niezalogowany ma dostęp do przeglądania zdjęć, bez możliwości komentowania. 
+
 ---
 *Jan Bąk 25.01.2022, Kraków*
