@@ -46,7 +46,7 @@ W katalogu `wwwroot` tworzymy folder o nazwie `uploads`.
  - Usuwać zdjęcia
  - Usuwać komentarze
  - Usuwać użytkowników
- - Edytować komentarze
+ - Edytować zdjęcia
  #### Moderator może:
  - Usuwać komentarze
  ---
