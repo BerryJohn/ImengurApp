@@ -7,7 +7,7 @@
 ---
 ## Konfiguracja:
 ### Połączenie z bazą danych
-Konfiguracje rozpoczynamy od zmiany `ConnectionString` w pliku `appsetings.json`.
+Konfiguracje rozpoczynamy od zmiany `ConnectionString` w pliku `appsetings.json`.  
 Odpowiednie formuły zmieniamy na potrzeby naszego systemu
 
 `DATA SOURCE={Nazwa maszyny};Integrated Security=true;DATABASE={Nazwa bazy};Trusted_Connection=True;MultipleActiveResultSets=True`  
@@ -52,6 +52,7 @@ W katalogu `wwwroot` tworzymy folder o nazwie `uploads`.
  ---
 Poza domyślnymi kontami mamy możliwość utworzenia własnego konta.  
 Po zalogowaniu się, mamy opcję dodawania własnych zdjęć oraz komentowania ich.  
+
 ---
 Projekt polegał na stworzeniu aplikacji do uploadowania własnych zdjęć/gifów, na wzór strony `www.imgur.com`. Dostęp do tych funkcji mają wyłączenie zalogowani użytkownicy. Użytkownik niezalogowany ma dostęp do przeglądania zdjęć, bez możliwości komentowania. 
 ---
