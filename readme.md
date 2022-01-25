@@ -1,14 +1,14 @@
 # Imengur - Image upload app
 #### Projekt zaliczeniowy z przedmiotu "Programowanie w środowisku ASP.NET"
 
-`Stworzone przez: Bąk Jan`
+`Stworzone przez: Bąk Jan`  
 `Numer indeku: 12158`
 
 ---
 ## Konfiguracja:
 ### Połączenie z bazą danych
 Konfiguracje rozpoczynamy od zmiany `ConnectionString` w pliku `appsetings.json`.
-Odpowiednie formuły zmieniamy je na potrzeby naszego systemu
+Odpowiednie formuły zmieniamy na potrzeby naszego systemu
 
 `DATA SOURCE={Nazwa maszyny};Integrated Security=true;DATABASE={Nazwa bazy};Trusted_Connection=True;MultipleActiveResultSets=True`  
 Na przykład:  
@@ -50,8 +50,9 @@ W katalogu `wwwroot` tworzymy folder o nazwie `uploads`.
  #### Moderator może:
  - Usuwać komentarze
  ---
- Poza domyślnymi kontami mamy możliwość utworzenia własnego konta.  
+Poza domyślnymi kontami mamy możliwość utworzenia własnego konta.  
 Po zalogowaniu się, mamy opcję dodawania własnych zdjęć oraz komentowania ich.  
-
+---
+Projekt polegał na stworzeniu aplikacji do uploadowania własnych zdjęć/gifów, na wzór strony `www.imgur.com`. Dostęp do tych funkcji mają wyłączenie zalogowani użytkownicy. Użytkownik niezalogowany ma dostęp do przeglądania zdjęć, bez możliwości komentowania. 
 ---
 *Jan Bąk 25.01.2022, Kraków*
