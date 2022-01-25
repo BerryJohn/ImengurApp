@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "G+NhiHg5dCczn2FOxe4BqscDKF6DVTwdiuXNiGBP1CS4mA4lSQb/OwS49kQB1EAQYo6u3EQhQ/8+HphBEhuWNg==",
+  "dgSpecHash": "4KwOtpPg6ekwB1KKyNsQ4JYWoHOvheGhCUsA27HcJd2VACkE83aPVoohhyAxWfVmfU5UoU6ImWo5wTaKk3wyeg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Berry\\Desktop\\prog_dotnet\\Imengur\\Imengur\\Imengur.csproj",
+  "projectFilePath": "C:\\Users\\Berry\\Desktop\\test\\prog_dotnet\\Imengur\\Imengur\\Imengur.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Berry\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Berry\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\5.0.10\\microsoft.aspnetcore.cryptography.internal.5.0.10.nupkg.sha512",

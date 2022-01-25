@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Berry\\Desktop\\prog_dotnet\\Imengur\\Imengur\\Imengur.csproj": {}
+    "C:\\Users\\Berry\\Desktop\\test\\prog_dotnet\\Imengur\\Imengur\\Imengur.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Berry\\Desktop\\prog_dotnet\\Imengur\\Imengur\\Imengur.csproj": {
+    "C:\\Users\\Berry\\Desktop\\test\\prog_dotnet\\Imengur\\Imengur\\Imengur.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Berry\\Desktop\\prog_dotnet\\Imengur\\Imengur\\Imengur.csproj",
+        "projectUniqueName": "C:\\Users\\Berry\\Desktop\\test\\prog_dotnet\\Imengur\\Imengur\\Imengur.csproj",
         "projectName": "Imengur",
-        "projectPath": "C:\\Users\\Berry\\Desktop\\prog_dotnet\\Imengur\\Imengur\\Imengur.csproj",
+        "projectPath": "C:\\Users\\Berry\\Desktop\\test\\prog_dotnet\\Imengur\\Imengur\\Imengur.csproj",
         "packagesPath": "C:\\Users\\Berry\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Berry\\Desktop\\prog_dotnet\\Imengur\\Imengur\\obj\\",
+        "outputPath": "C:\\Users\\Berry\\Desktop\\test\\prog_dotnet\\Imengur\\Imengur\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Berry\\AppData\\Roaming\\NuGet\\NuGet.Config",
