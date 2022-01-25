@@ -10,14 +10,14 @@
 Konfiguracje rozpoczynamy od zmiany `ConnectionString` w pliku `appsetings.json`.
 Odpowiednie formuły zmieniamy je na potrzeby naszego systemu
 
-`DATA SOURCE={Nazwa maszyny};Integrated Security=true;DATABASE={Nazwa bazy};Trusted_Connection=True;MultipleActiveResultSets=True`
+`DATA SOURCE={Nazwa maszyny};Integrated Security=true;DATABASE={Nazwa bazy};Trusted_Connection=True;MultipleActiveResultSets=True`  
 Na przykład:
-`DATA SOURCE=DESKTOP-SHG0JP3;Integrated Security=true;DATABASE=Imengur_DB;Trusted_Connection=True;MultipleActiveResultSets=True`
+`DATA SOURCE=DESKTOP-SHG0JP3;Integrated Security=true;DATABASE=Imengur_DB;Trusted_Connection=True;MultipleActiveResultSets=True`  
 
 ### Stworzenie bazy danych
 W konsoli menedżera pakietów wpisać odpowiednie komendy:
-`add-migration {nazwa migracji}`
-następnie
+`add-migration {nazwa migracji}`  
+następnie  
 `update-database -verbose`
 Po tych komendach powinnam nam się utworzyć baza danych, która powinna być widziana na naszym lokalnym serwerze MSSQL (Na przykład w programie `Microsoft SQL Server Managment Studio`).
 ### Utworzenie katalogu na zdjęcia
@@ -50,8 +50,8 @@ W katalogu `wwwroot` tworzymy folder o nazwie `uploads`.
  #### Moderator może:
  - Usuwać komentarze
  ---
- Poza domyślnymi kontami mamy możliwość utworzenia własnego konta.
-Po zalogowaniu się, mamy opcję dodawania własnych zdjęć oraz komentowania ich. 
+ Poza domyślnymi kontami mamy możliwość utworzenia własnego konta.  
+Po zalogowaniu się, mamy opcję dodawania własnych zdjęć oraz komentowania ich.  
 
 ---
 *Jan Bąk 25.01.2022, Kraków*
