@@ -54,7 +54,7 @@ Poza domyślnymi kontami mamy możliwość utworzenia własnego konta.
 Po zalogowaniu się, mamy opcję dodawania własnych zdjęć oraz komentowania ich.  
 
 ---
-Projekt polegał na stworzeniu aplikacji do uploadowania własnych zdjęć/gifów, na wzór strony `www.imgur.com`. Dostęp do tych funkcji mają wyłączenie zalogowani użytkownicy. Użytkownik niezalogowany ma dostęp do przeglądania zdjęć, bez możliwości komentowania. 
+Projekt polegał na stworzeniu aplikacji do uploadowania własnych zdjęć/gifów, na wzór strony [Imgur.com](https://www.imgur.com "Strona imgur"). Dostęp do tych funkcji mają wyłączenie zalogowani użytkownicy. Użytkownik niezalogowany ma dostęp do przeglądania zdjęć, bez możliwości komentowania. 
 
 ---
 *Jan Bąk 25.01.2022, Kraków*
