@@ -11,17 +11,17 @@ Konfiguracje rozpoczynamy od zmiany `ConnectionString` w pliku `appsetings.json`
 Odpowiednie formuły zmieniamy je na potrzeby naszego systemu
 
 `DATA SOURCE={Nazwa maszyny};Integrated Security=true;DATABASE={Nazwa bazy};Trusted_Connection=True;MultipleActiveResultSets=True`  
-Na przykład:
+Na przykład:  
 `DATA SOURCE=DESKTOP-SHG0JP3;Integrated Security=true;DATABASE=Imengur_DB;Trusted_Connection=True;MultipleActiveResultSets=True`  
 
 ### Stworzenie bazy danych
-W konsoli menedżera pakietów wpisać odpowiednie komendy:
+W konsoli menedżera pakietów wpisać odpowiednie komendy:  
 `add-migration {nazwa migracji}`  
 następnie  
-`update-database -verbose`
+`update-database -verbose`  
 Po tych komendach powinnam nam się utworzyć baza danych, która powinna być widziana na naszym lokalnym serwerze MSSQL (Na przykład w programie `Microsoft SQL Server Managment Studio`).
 ### Utworzenie katalogu na zdjęcia
-Przed uruchomieniem aplikacji, należy utworzyć odpowiedni katalog na trzymanie zdjęć. 
+Przed uruchomieniem aplikacji, należy utworzyć odpowiedni katalog na trzymanie zdjęć.  
 W katalogu `wwwroot` tworzymy folder o nazwie `uploads`.
 
 ### !Przed uruchomieniem należy sprawdzić, czy w pakietach NuGet znajdują się odpowiednie biblioteki!
