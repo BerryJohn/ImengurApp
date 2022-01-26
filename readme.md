@@ -3,7 +3,7 @@
 
 `Stworzone przez: Bąk Jan`  
 `Numer indeku: 12158`  
-Wersja live: [https://imengur.azurewebsites.net](Imengur)
+Wersja live: [imengur.azurewebsites.net](https://imengur.azurewebsites.net)
 
 ---
 ## Konfiguracja:
